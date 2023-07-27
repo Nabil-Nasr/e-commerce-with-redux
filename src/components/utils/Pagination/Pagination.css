@@ -1,0 +1,25 @@
+.pagination .page-link {
+  color: var(--bs-btn-color);
+  background-color: white;
+  border-radius: 0.25rem !important;
+  margin-inline: 0.2rem;
+}
+
+.pagination .page-link:hover {
+  color: var(--bs-btn-hover-color);
+  border-color: var(--bs-btn-border-color);
+  background-color: var(--bs-btn-hover-bg);
+}
+
+.pagination .page-link:focus {
+  box-shadow: none;
+}
+
+.pagination .active .page-link {
+  border-color: var(--bs-btn-active-border-color);
+}
+
+.pagination .disabled .page-link {
+  color: var(--bs-btn-disabled-color);
+  background-color: var(--bs-btn-disabled-bg);
+}

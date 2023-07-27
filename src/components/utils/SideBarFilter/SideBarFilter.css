@@ -1,0 +1,27 @@
+.form-check-input:focus {
+  box-shadow: none;
+  border-color: var(--bs-btn-active-border-color);
+}
+
+.form-check-input:checked {
+  background-color: var(--bs-btn-active-bg) ;
+  border-color: var(--bs-btn-active-border-color);
+}
+
+/* for firefox (not standard but simple)*/
+/* to remove the arrows inside the input element */
+.form-control[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* for webkit browsers (not standard but simple) (same effect as above)*/
+.form-control[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: var(--bs-btn-active-border-color);
+}

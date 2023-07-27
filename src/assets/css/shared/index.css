@@ -1,0 +1,21 @@
+:root {
+  scroll-behavior: smooth;
+  --toastify-font-family: 'Almarai',sans-serif;
+}
+
+body {
+  font-family: 'Almarai',sans-serif;
+}
+
+*,*::before,*::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color:   rgba(var(--bs-tertiary-bg-rgb));
+};

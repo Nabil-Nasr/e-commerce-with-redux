@@ -1,0 +1,65 @@
+.image-gallery {
+  height: max(400px, 50vh);
+}
+
+.image-gallery-content {
+  display: flex;
+  height: 100%;
+}
+
+.image-gallery-content>* {
+  margin-block: auto;
+}
+
+
+.image-gallery-slide-wrapper,
+.image-gallery-swipe,
+.image-gallery-slides,
+.image-gallery-slide,
+.image-gallery-image {
+  height: 100% !important;
+}
+
+/* Hide thumbnail scrollbar in Webkit */
+.image-gallery-thumbnails::-webkit-scrollbar{
+  display: none;
+}
+
+/* Enable thumbnail scrollbar functionality and hiding it in Firefox ,IE and Edge*/
+.image-gallery-thumbnails {
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.image-gallery-thumbnail.active,
+.image-gallery-thumbnail:hover,
+.image-gallery-thumbnail:focus {
+  border-color: var(--bs-btn-active-border-color);
+}
+
+
+
+.image-gallery-icon:hover {
+  color: var(--bs-btn-hover-bg);
+}
+
+.image-gallery-icon:focus {
+  outline-color: var(--bs-btn-hover-bg);
+}
+
+.image-gallery-bullets-container {
+  padding-inline: 10px !important;
+}
+
+.image-gallery-bullets-container>.image-gallery-bullet {
+  margin-bottom: 5px;
+}
+
+.image-gallery-bullets-container>.image-gallery-bullet.active,
+.image-gallery-bullets-container>.image-gallery-bullet.active:hover,
+.image-gallery-bullets-container>.image-gallery-bullet:hover,
+.image-gallery-bullets-container>.image-gallery-bullet:focus {
+  border-color: var(--bs-btn-border-color);
+  background-color: var(--bs-btn-hover-bg);
+}

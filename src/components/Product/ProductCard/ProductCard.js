@@ -1,0 +1,25 @@
+import { Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import imgg from '../../../assets/images/img.webp';
+import './ProductCard.css';
+
+const ProductCard = ({ title, vote, price, imgSrc }) => {
+  return (
+    <Col xs="4" md="3" xxl="2" className="px-2">
+      <div className="card">
+        <Link to={`/products/:id`}>
+          <img src={imgSrc ?? imgg} alt={title} className="w-100 " />
+        </Link>
+        <div className="p-2">
+          <p className="product-title">{title}</p>
+          <div className="d-flex justify-content-between align-items-end">
+            <div>{vote}*</div>
+            <div>{price} جنيه</div>
+          </div>
+        </div>
+      </div>
+    </Col>
+  );
+};
+
+export default ProductCard;
