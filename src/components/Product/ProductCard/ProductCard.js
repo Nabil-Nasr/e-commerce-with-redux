@@ -13,7 +13,7 @@ const ProductCard = ({ title, vote, price, imgSrc }) => {
         <div className="p-2">
           <p className="product-title">{title}</p>
           <div className="d-flex justify-content-between align-items-end">
-            <div>{vote}*</div>
+            <div><i className="fas fa-star text-warning"></i> {vote}</div>
             <div>{price} جنيه</div>
           </div>
         </div>

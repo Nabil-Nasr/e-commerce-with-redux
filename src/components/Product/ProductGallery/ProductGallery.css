@@ -20,6 +20,7 @@
   height: 100% !important;
 }
 
+
 /* Hide thumbnail scrollbar in Webkit */
 .image-gallery-thumbnails::-webkit-scrollbar{
   display: none;
@@ -30,6 +31,7 @@
   overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  scroll-behavior: smooth;
 }
 
 .image-gallery-thumbnail.active,
