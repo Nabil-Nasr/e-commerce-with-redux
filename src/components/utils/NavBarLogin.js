@@ -18,15 +18,16 @@ const NavBarLogin = () => {
               <Form.Control
                 type="search"
                 placeholder="ابحث ..."
-                className="me-3 text-center shadow-none border-0"
+                className="me-3 text-center shadow-none border-0 rounded-0"
                 aria-label="ابحث"
               />
               <Link to="/login" className="text-white text-decoration-none  d-flex align-items-center me-3">
                 <i className="far fa-circle-user fs-3 me-1" />دخول
               </Link>
-              <div className="text-white d-flex align-items-center ">
+              <Link to="/cart" className="text-white d-flex
+              text-decoration-none align-items-center ">
                 <i className="fas fa-cart-shopping fs-3 me-1" />العربة
-              </div>
+              </Link>
             </div>
           </Navbar.Collapse>
         </Container>

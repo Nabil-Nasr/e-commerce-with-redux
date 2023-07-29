@@ -5,8 +5,8 @@ const SubTitle = ({ title, btnTitle, btnPath }) => {
   return (
     <>
       {title && <div className="d-flex justify-content-between align-items-center my-3">
-        <h3>{title}</h3>
-        {btnTitle && <Link to={btnPath}><Button variant="outline-dark" className="rounded-4">{btnTitle}</Button></Link>}
+        <h3 className="fw-bold">{title}</h3>
+        {btnTitle && <Link to={btnPath}><Button variant="outline-dark" className="rounded-0">{btnTitle}</Button></Link>}
       </div>}
     </>
   );

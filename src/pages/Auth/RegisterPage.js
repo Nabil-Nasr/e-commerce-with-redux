@@ -10,17 +10,17 @@ const RegisterPage = () => {
             <h2 className="fw-bold my-3">تسجيل حساب جديد</h2>
             <Form.Group className="my-2" controlId="formBasicEmail">
               <Form.Control type="text" placeholder="إسم المستخدم..."
-                className="text-center" />
+                className="text-center rounded-0 " />
             </Form.Group>
             <Form.Group className="my-2" controlId="formBasicEmail">
               <Form.Control type="text" placeholder="الإيميل..."
-                className="text-center" />
+                className="text-center rounded-0 " />
             </Form.Group>
             <Form.Group className="my-2" controlId="formBasicPassword">
               <Form.Control type="password" placeholder="كلمة السر..."
-                className="text-center" />
+                className="text-center rounded-0 " />
             </Form.Group>
-            <Button variant="dark" className="my-3" type="submit">
+            <Button variant="dark" className="my-3 rounded-0 " type="submit">
               تسجيل الحساب
             </Button>
             <div>لديك حساب بالفعل ؟ <Link to="/login" className="text-danger text-decoration-none fw-bold ">اضغط هنا</Link></div>

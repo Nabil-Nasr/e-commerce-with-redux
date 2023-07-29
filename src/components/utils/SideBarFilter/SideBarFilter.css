@@ -1,3 +1,7 @@
+.form-check-input {
+  border-radius: 0 !important;
+}
+
 .form-check-input:focus {
   box-shadow: none;
   border-color: var(--bs-btn-active-border-color);
@@ -13,6 +17,7 @@
 .form-control[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
+  border-radius: 0;
 }
 
 /* for webkit browsers (not standard but simple) (same effect as above)*/

@@ -1,7 +1,7 @@
 .pagination .page-link {
   color: var(--bs-btn-color);
   background-color: white;
-  border-radius: 0.25rem !important;
+  border-radius: 0 !important;
   margin-inline: 0.2rem;
 }
 

@@ -9,6 +9,7 @@ import BrandsPage from "./pages/Brands/BrandsPage";
 import ProductsPage from "./pages/Products/ProductsPage";
 import ProductDetailsPage from "./pages/Products/ProductDetailsPage";
 import CategoryHeader from "./components/Category/CategoryHeader";
+import CartPage from "./pages/Cart/CartPage";
 
 
 
@@ -19,6 +20,8 @@ const App = () => {
       <NavBarLogin />
       <Routes>
         <Route index element={<HomePage />} />
+
+        <Route path="/cart" element={<CartPage />} />
 
         <Route path="/login" element={<LoginPage />} />
 
