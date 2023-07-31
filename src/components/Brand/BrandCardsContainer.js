@@ -6,7 +6,7 @@ const BrandCardsContainer = ({btnTitle,btnPath,title}) => {
   return (
     <div>
       <SubTitle btnTitle={btnTitle} title={title} btnPath={btnPath} />
-      <Row>
+      <Row className="px-1">
           <BrandCard />
           <BrandCard />
           <BrandCard />

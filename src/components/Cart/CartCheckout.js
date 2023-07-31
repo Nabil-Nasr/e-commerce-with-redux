@@ -1,4 +1,5 @@
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const CartCheckout = () => {
   return (
@@ -8,7 +9,7 @@ const CartCheckout = () => {
         <Button variant="dark" className="rounded-0 border-start-0 ">تطبيق</Button>
       </div>
       <Button className="bg-white text-black border py-2 rounded-0 ">34000 جنيه</Button>
-      <Button variant="dark" className="py-2 rounded-0 ">إتمام الشراء</Button>
+      <Link to="/order/payment-method" ><Button variant="dark" className="py-2 rounded-0 w-100">إتمام الشراء</Button></Link>
     </div>
   );
 }

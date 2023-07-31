@@ -2,7 +2,7 @@ import { Container } from "react-bootstrap";
 
 const Footer = () => {
   return (
-    <footer className="mt-auto bg-white py-4">
+    <footer className="mt-auto bg-white py-4 shadow-sm">
       <Container className="d-flex justify-content-between  flex-wrap text-dark-emphasis row-gap-3">
         <div className="d-flex column-gap-2 align-items-center">
           <span>الشروط والأحكام</span>

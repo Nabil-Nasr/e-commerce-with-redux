@@ -4,7 +4,7 @@ import SubTitle from "../utils/SubTitle";
 
 const CategoryCardsContainer = ({title,btnTitle,btnPath}) => {
   return (
-      <div>
+      <div className="d-grid row-gap-3">
         <SubTitle title={title} btnTitle={btnTitle} btnPath={btnPath} />
         <Row>
           <CategoryCard title="ألبان" backgroundColor="green"/>

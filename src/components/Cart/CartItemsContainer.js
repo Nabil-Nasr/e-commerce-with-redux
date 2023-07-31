@@ -6,9 +6,6 @@ const CartItemsContainer = () => {
       <CartItem/>
       <CartItem/>
       <CartItem/>
-      <CartItem/>
-      <CartItem/>
-      <CartItem/>
     </div>
   );
 }

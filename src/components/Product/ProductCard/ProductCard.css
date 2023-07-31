@@ -1,5 +1,6 @@
 .card {
   overflow: hidden;
+  border: none;
 }
 
 .card img {

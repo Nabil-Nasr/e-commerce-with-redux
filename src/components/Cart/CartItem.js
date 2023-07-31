@@ -16,21 +16,20 @@ const CartItem = () => {
           <div className="text-secondary">الإلكترونيات</div>
           <div><i className="far fa-trash-can"></i> إزالة</div>
         </div>
-        <div>سبس س سيسب سبيسب سبيس يسب سبيسب سيبيس سس بسي سب سب سبس</div>
-        <div className="text-warning"><i className="fas fa-star"></i> 4.5</div>
-
         <div>
-          <span className="text-secondary ">الماركة: </span>
-          <span className="fs-4">سامسونج</span>
-        </div>
-
-        <div className="d-flex mb-3">
-          <div className="border p-3 rounded-circle  bg-danger"></div>
-        </div>
-
-        <div className="d-flex justify-content-between mb-2">
-          <div>الكمية <input type="number" style={{maxWidth:65}} /></div>
-          <div className="fs-5">3000 جنيه</div>
+          <div>سبس س سيسب سبيسب سبيس يسب سبيسب سيبيس سس بسي سب سب سبس</div>
+          <div className="text-warning"><i className="fas fa-star"></i> 4.5</div>
+          <div>
+            <span className="text-secondary ">الماركة: </span>
+            <span className="fs-4">سامسونج</span>
+          </div>
+          <div className="d-flex mb-3">
+            <div className="border p-3 rounded-circle  bg-danger"></div>
+          </div>
+          <div className="d-flex justify-content-between mb-2">
+            <div>الكمية <input type="number" style={{maxWidth:65}} /></div>
+            <div className="fs-5">3000 جنيه</div>
+          </div>
         </div>
       </Col>
     </Row>

@@ -1,13 +1,19 @@
-.form-check-input {
+.form-check-input[type="checkbox"] {
   border-radius: 0 !important;
 }
 
-.form-check-input:focus {
+.form-check-input:focus,
+.form-select:focus {
   box-shadow: none;
   border-color: var(--bs-btn-active-border-color);
 }
 
-.form-check-input:checked {
+.form-check-input[type="checkbox"]:checked {
+  background-color: var(--bs-btn-active-bg) ;
+  border-color: var(--bs-btn-active-border-color);
+}
+
+.form-check-input[type="radio"]:checked {
   background-color: var(--bs-btn-active-bg) ;
   border-color: var(--bs-btn-active-border-color);
 }

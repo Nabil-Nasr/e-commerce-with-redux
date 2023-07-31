@@ -23,6 +23,9 @@ const LoginPage = () => {
 
           </Col>
         </Row>
+        <div>روابط لتجربة تصميم الموقع</div>
+        <div><Link to="/admin">صفحة الأدمن</Link></div>
+        <div><Link to="/user">صفحة المستخدم العادي</Link></div>
       </Container>
     </>
   );
