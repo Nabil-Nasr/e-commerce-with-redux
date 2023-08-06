@@ -1,13 +1,13 @@
 import ReactPaginate from "react-paginate";
-import "./Pagination.css"
+import "./Pagination.css";
 
-const Pagination = ({applyPagination,pageCount,currentPage}) => {
+const Pagination = ({ applyPagination, pageCount, currentPage }) => {
   const handlePageChange = ({ selected }) => {
     // The selected is starting from 0
     const page = selected + 1;
-    applyPagination(page)
+    applyPagination(page);
   };
-  
+
   return (
     <ReactPaginate
       breakLabel="..."
@@ -29,7 +29,7 @@ const Pagination = ({applyPagination,pageCount,currentPage}) => {
       breakClassName="page-item"
       breakLinkClassName="page-link"
       disabledClassName="disabled"
-      forcePage={!currentPage?-1:currentPage-1}
+      forcePage={!currentPage || (currentPage === 1 && pageCount <= 1) ? -1 : currentPage - 1 }
     />
   );
 };

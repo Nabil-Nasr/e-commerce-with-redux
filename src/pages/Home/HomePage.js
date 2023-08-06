@@ -11,7 +11,7 @@ const HomePage = () => {
     <>
       <Slider />
       <Container className="d-flex flex-column row-gap-5 my-5">
-        <CategoryCardsContainer title="التصنيفات" btnTitle="المزيد" btnPath="/categories" />
+        <CategoryCardsContainer title="التصنيفات" btnTitle="المزيد" btnPath="/categories" params={{limit:6}}/>
         <ProductCardsContainer btnTitle="المزيد" title="الأكثر مبيعا" btnPath="/products" />
       </Container>
       <Container fluid>

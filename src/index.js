@@ -16,4 +16,5 @@ createRoot(root)
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </Provider>);
+    </Provider>
+  );

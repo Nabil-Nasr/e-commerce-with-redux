@@ -1,5 +1,4 @@
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 const CheckoutMethod = () => {
   return (
@@ -11,7 +10,7 @@ const CheckoutMethod = () => {
       </div>
       <div className="ms-auto mt-2 d-flex column-gap-2 ">
         <Button className="bg-white text-black border py-2 rounded-0 ">34000 جنيه</Button>
-        <Link to="/payment-method" ><Button variant="dark" className="py-2 rounded-0">إتمام الشراء</Button></Link>
+        <Button variant="dark" className="py-2 rounded-0">إتمام الشراء</Button>
       </div>
     </div>
   );

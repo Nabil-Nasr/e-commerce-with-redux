@@ -1,5 +1,3 @@
-const types = {
+export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES"
 
-}
-
-export default types
+export const GET_ERROR = "GET_ERROR"
