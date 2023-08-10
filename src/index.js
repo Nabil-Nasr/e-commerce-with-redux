@@ -7,14 +7,17 @@ import './assets/css/shared/all.fontawesome.min.css';
 import './assets/css/shared/fonts.min.css';
 import './assets/css/shared/index.css';
 import store from "./redux/store";
+import { StrictMode as DevelopmentStrictMode} from "react";
 
 const root = document.getElementById('root');
 
 createRoot(root)
   .render(
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <DevelopmentStrictMode>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </DevelopmentStrictMode>
   );
