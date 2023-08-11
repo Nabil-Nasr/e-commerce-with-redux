@@ -19,7 +19,7 @@ const HomePage = () => {
       </Container>
       <Container className="d-flex flex-column row-gap-5 my-5">
         <ProductCardsContainer btnTitle="المزيد" title="أحدث الأزياء" btnPath="/products" />
-        <BrandCardsContainer btnPath="/brands" btnTitle="المزيد" title="أشهر الماركات" />
+        <BrandCardsContainer btnPath="/brands" btnTitle="المزيد" title="أشهر الماركات" params={{limit:6}}/>
       </Container>
     </>
   );
