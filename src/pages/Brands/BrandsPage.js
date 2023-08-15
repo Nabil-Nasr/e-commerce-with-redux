@@ -5,11 +5,11 @@ import useGetAllItems from "../../hooks/useGetAllItems";
 import { getAllBrands } from "../../redux/actions/brandActions";
 
 const BrandsPage = () => {
-  const { limit, page, numberOfPages, applyPagination, currentPage } = useGetAllItems({allItemsReducer:"allBrands",getAllItemsAction:getAllBrands});
+  const {numberOfPages, applyPagination, currentPage } = useGetAllItems({allItemsReducer:"allBrands",getAllItemsAction:getAllBrands});
   
   return (
     <Container className="my-4">
-      <BrandCardsContainer title="كل الماركات" params={{limit,page}}/>
+      <BrandCardsContainer title="كل الماركات"/>
       <Pagination pageCount={numberOfPages} applyPagination={applyPagination} currentPage={currentPage} />
     </Container>
   );

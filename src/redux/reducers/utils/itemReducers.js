@@ -7,6 +7,7 @@ export const allItemsReducer = ({ GET_ALL_ITEMS, ALL_ITEMS_ENABLE_LOADING, GET_A
       };
     case ALL_ITEMS_ENABLE_LOADING:
       return {
+        ...prevState,
         loading: true,
       };
     case GET_ALL_ITEMS_ERROR:

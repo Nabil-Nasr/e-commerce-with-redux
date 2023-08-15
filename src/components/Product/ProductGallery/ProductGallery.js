@@ -116,7 +116,7 @@ const ProductGallery = ({responsive="lg"}) => {
         thumbnail: phone3
       },
     ]}
-      additionalClass="btn-outline-dark bg-white shadow-sm"
+      additionalClass="bg-white shadow-sm"
       disableThumbnailScroll
       isRTL showPlayButton={false} {...galleryArgs} showNav={false} showIndex infinite={false}
       onSlide={scrollThumbnailNearest}

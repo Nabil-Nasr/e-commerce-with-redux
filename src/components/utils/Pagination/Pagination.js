@@ -18,7 +18,7 @@ const Pagination = ({ applyPagination, pageCount, currentPage }) => {
       pageCount={!pageCount || pageCount <= 1 ? 0 : pageCount}
       previousLabel="السابق"
       renderOnZeroPageCount={null}
-      containerClassName="pagination pt-5 btn-outline-dark justify-content-center flex-wrap row-gap-1"
+      containerClassName="pagination pt-5 justify-content-center flex-wrap row-gap-1"
       pageClassName="page-item"
       pageLinkClassName="page-link"
       previousClassName="page-item"

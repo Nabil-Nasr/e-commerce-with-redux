@@ -38,7 +38,7 @@ const SideBarFilter = ({ children, expandMinWidth }) => {
               <Offcanvas.Title>البحث المتقدم</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <dv className="pb-4 d-grid row-gap-4 btn-outline-dark">
+              <dv className="pb-4 d-grid row-gap-4">
                 <div>
                   <h4 className="mb-3">الفئة</h4>
                   <Form.Check type="checkbox" id="all-categories" label="الكل"

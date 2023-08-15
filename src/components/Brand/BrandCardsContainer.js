@@ -1,12 +1,12 @@
 import { Row } from "react-bootstrap";
 import BrandCard from "./BrandCard";
 import SubTitle from "../utils/SubTitle";
-import { allBrandsEnableLoading, getAllBrands } from "../../redux/actions/brandActions";
 import Loading from "../utils/Loading";
-import useGetAllInitialItems from "../../hooks/useGetAllInitialItems";
+import {  useSelector } from "react-redux";
 
-const BrandCardsContainer = ({ title, btnTitle, btnPath, params }) => {
-  const { data: brands, loading } = useGetAllInitialItems({ allItemsReducer: "allBrands", params, getAllItemsAction: getAllBrands, allItemsEnableLoadingAction: allBrandsEnableLoading });
+
+const BrandCardsContainer = ({ title, btnTitle, btnPath }) => {
+  const {data:brands,loading} = useSelector(({allBrands})=>allBrands)
 
   return (
     <div>

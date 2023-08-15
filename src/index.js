@@ -10,14 +10,15 @@ import store from "./redux/store";
 import { StrictMode as DevelopmentStrictMode} from "react";
 
 const root = document.getElementById('root');
+root.classList.add("btn-outline-dark")
 
 createRoot(root)
   .render(
-    <DevelopmentStrictMode>
+    <>
       <Provider store={store}>
         <BrowserRouter>
-          <App />
+          <App  />
         </BrowserRouter>
       </Provider>
-    </DevelopmentStrictMode>
+    </>
   );

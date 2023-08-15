@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import useUpdateEffect from "./useUpdateEffect";
+import { useEffect } from "react";
 
 const useGetAllItems = ({allItemsReducer,getAllItemsAction}) => {
-  const limit = 3;
+  const limit = 7;
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
 
@@ -17,7 +17,7 @@ const useGetAllItems = ({allItemsReducer,getAllItemsAction}) => {
   const { paginationResult: { currentPage, numberOfPages } = {} } = useSelector(state => state[allItemsReducer]);
 
   const page = searchParams.get("page");
-  useUpdateEffect(() => {
+  useEffect(() => {
     const controller = new AbortController();
     dispatch(getAllItemsAction({ params: { limit, page }, signal: controller.signal }));
     return () => controller.abort();

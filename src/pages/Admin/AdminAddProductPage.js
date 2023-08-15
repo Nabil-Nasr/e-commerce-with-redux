@@ -1,48 +1,47 @@
-import { Button, Form } from "react-bootstrap";
-import MultiSelect from "../../components/utils/MultiSelect";
+import { Form } from "react-bootstrap";
+import CustomSelect from "../../components/utils/CustomSelect";
+import useGetItemsWithParams from "../../hooks/useGetItemsWithParams";
+import { getAllCategories } from "../../redux/actions/categoryActions";
+import { getAllSubCategories } from "../../redux/actions/subCategoryActions";
+import { getAllBrands } from "../../redux/actions/brandActions";
+import useDebouncedState from "../../hooks/useDebouncedState";
+import AdminAddFormData from "../../components/Admin/AdminAddFormData";
 
 const AdminAddProductPage = () => {
-  return (
-    <div>
-      <h3 className="fw-bold">إضافة منتج جديد</h3>
-      <div className="text-secondary">
-        <div>صورة المنتج</div>
-        <i className="far fa-image fa-7x"></i>
-      </div>
+  const [categoryKeyword, setCategoryKeyword] = useDebouncedState("", 500);
+  const [subCategoryKeyword, setSubCategoryKeyword] = useDebouncedState("", 500);
+  const [brandKeyword, setBrandKeyword] = useDebouncedState("", 500);
+  useGetItemsWithParams({ params: { limit: 10, keyword: categoryKeyword }, getAllItemsAction: getAllCategories });
+  useGetItemsWithParams({ params: { limit: 10, keyword: subCategoryKeyword }, getAllItemsAction: getAllSubCategories });
+  useGetItemsWithParams({ params: { limit: 10, keyword: brandKeyword }, getAllItemsAction: getAllBrands });
 
-      <div className="mt-3 d-grid row-gap-2">
-        <input type="text" placeholder="إسم المنتج" className="p-2 form-control rounded-0" />
+  return (
+    <AdminAddFormData pageHeader="إضافة منتج جديد" imgHeader="صورة المنتج" imgName="imageCover">
+      <input type="text" placeholder="إسم المنتج" className="p-2 form-control rounded-0" />
         <Form.Control as="textarea" className="rounded-0 mb-2" rows={3} placeholder="وصف المنتج" />
 
         <input type="number" placeholder="السعر قبل الخصم" className="p-2 text-start form-control rounded-0" />
         <input type="number" placeholder="السعر بعد الخصم" className="p-2 text-start form-control rounded-0" />
-        
-        <Form.Select aria-label="Subcategory" className="rounded-0 text-secondary">
-          <option>التصنيف الرئيسي</option>
-          <option value="1">التصنيف الأول</option>
-          <option value="2">التصنيف الثاني</option>
-          <option value="3">التصنيف الثالث</option>
-          <option value="4">التصنيف الرابع</option>
-        </Form.Select>
 
-        <MultiSelect
-          placeholder="التصنيفات الفرعية"
-          options={[
-            {value:1,label:"التصنيف الفرعي الأول"},
-            {value:2,label:"التصنيف الفرعي الثاني"},
-            {value:3,label:"التصنيف الفرعي الثالث"},
-            {value:4,label:"التصنيف الفرعي الرابع"},
-          ]}
-          noOptionsMessage="لا خيارات"
+        <CustomSelect
+          placeholder="التصنيف الرئيسي"
+          allItemsReducer="allCategories"
+          onInputChange={setCategoryKeyword}
         />
 
-        <Form.Select aria-label="Subcategory" className="rounded-0 text-secondary">
-          <option>الماركة</option>
-          <option value="1">الماركة الأولي</option>
-          <option value="2">الماركة الثانية</option>
-          <option value="3">الماركة الثالثة</option>
-          <option value="4">الماركة الرابعة</option>
-        </Form.Select>
+        <CustomSelect
+          isMulti
+          placeholder="التصنيفات الفرعية"
+          allItemsReducer="allSubCategories"
+          onInputChange={setSubCategoryKeyword}
+        />
+
+        <CustomSelect
+          placeholder="الماركة"
+          allItemsReducer="allBrands"
+          onInputChange={setBrandKeyword}
+          name="brand"
+        />
 
         <div className="my-3">
           <div>الألوان المتاحة</div>
@@ -53,12 +52,7 @@ const AdminAddProductPage = () => {
             <div className="border p-3 rounded-circle"><span className="position-absolute translate-middle">+</span></div>
           </div>
         </div>
-
-        <Button variant="dark" className="py-2 rounded-0 ms-auto">حفظ التعديلات</Button>
-
-      </div>
-
-    </div>
+    </AdminAddFormData>
   );
 };
 
