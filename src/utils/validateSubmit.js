@@ -1,7 +1,8 @@
 const validateSubmit = (formHTMLElement) => {
   const formObject = {};
   for (let input of formHTMLElement) {
-    if (input.id === "react-select-text-input" || input.tagName === "BUTTON") continue;
+    if ((typeof input.id === "string" && input.id.startsWith("react-select")) 
+        || input.tagName === "BUTTON") continue;
 
     switch (input.type) {
       case "file":

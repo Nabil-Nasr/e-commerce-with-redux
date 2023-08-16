@@ -23,7 +23,7 @@ const useGetAllItems = ({allItemsReducer,getAllItemsAction}) => {
     return () => controller.abort();
   }, [page]);
 
-  return { limit, page, numberOfPages, applyPagination, currentPage }
+  return {  numberOfPages, applyPagination, currentPage }
 }
 
 export default useGetAllItems;

@@ -1,24 +1,38 @@
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 
 
 const CustomSelect = ({ isMulti, placeholder, onInputChange, allItemsReducer, name, ...props }) => {
-  const { data, loading } = useSelector((state) => state[allItemsReducer]);
+  const { data, loading, error } = useSelector((state) => state[allItemsReducer]);
+  const [cacheInputValue, setCacheInputValue] = useState("");
+  const cacheObjectRef = useRef({});
+  const cacheData = cacheObjectRef.current[cacheInputValue] || data;
 
   return (
     <Select
       isMulti={isMulti}
       placeholder={placeholder}
-      onInputChange={onInputChange}
+      onInputChange={inputValue => {
+        setCacheInputValue(inputValue);
+        onInputChange(prev => {
+          if (cacheObjectRef.current[inputValue]) {
+            return prev;
+          }
+          if (!error) {
+            cacheObjectRef.current[prev] = data;
+          }
+          return inputValue;
+        });
+      }}
       name={name}
       noOptionsMessage={() => "لا خيارات"}
       loadingMessage={() => "جاري البحث ..."}
       isLoading={loading}
       isRtl
-      inputId="react-select-text-input"
-      
+
       options={
-        data?.map(item => (
+        cacheData?.map(item => (
           { value: item._id, label: item.name }
         ))
       }
