@@ -1,45 +1,44 @@
-export const allItemsReducer = ({ GET_ALL_ITEMS, ALL_ITEMS_ENABLE_LOADING, GET_ALL_ITEMS_ERROR }) => (prevState = { loading: true, data: [] }, action) => {
+export const allItemsReducer = ({ GET_ALL_ITEMS, ALL_ITEMS_ENABLE_LOADING, GET_ALL_ITEMS_ERROR }) => (prevState = { loading: false, data: [] }, action) => {
   switch (action.type) {
     case GET_ALL_ITEMS:
-      return {
-        ...action.payload,
-        loading: false
-      };
+      action.payload.loading = false;
+      return action.payload;
+
     case ALL_ITEMS_ENABLE_LOADING:
-      return {
-        ...prevState,
-        loading: true,
-      };
+      prevState.loading = true;
+      delete prevState.error
+      break;
+
     case GET_ALL_ITEMS_ERROR:
-      return {
-        ...prevState,
-        loading: true,
-        error: action.error,
-      };
+      prevState.loading = false;
+      prevState.error = action.error;
+      break;
+
     default:
-      return prevState;
   }
+
+  return prevState;
 };
 
 
 export const itemReducer = ({ CREATE_ITEM, ITEM_ENABLE_LOADING, CREATE_ITEM_ERROR }) => (prevState = { loading: false }, action) => {
   switch (action.type) {
     case CREATE_ITEM:
-      return {
-        ...action.payload,
-        loading: false
-      };
+      action.payload.loading = false;
+      return action.payload;
+
     case ITEM_ENABLE_LOADING:
-      return {
-        loading: true,
-      };
+      prevState.loading = true;
+      delete prevState.error
+      break;
+
     case CREATE_ITEM_ERROR:
-      return {
-        loading: false,
-        error: action.error,
-      };
+      prevState.loading = false;
+      prevState.error = action.error;
+      break;
 
     default:
-      return prevState;
   }
+
+  return prevState;
 };

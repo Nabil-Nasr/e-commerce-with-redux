@@ -26,31 +26,13 @@ import UserAddressesPage from "./pages/User/UserAddressesPage";
 import UserProfilePage from "./pages/User/UserProfilePage";
 import UserEditAddressPage from "./pages/User/UserEditAddressPage";
 import UserAddAddressPage from "./pages/User/UserAddAddressPage";
-import ActionMessageContainer, { notify } from "./components/utils/ActionMessageContainer";
-import { useEffect } from "react";
-import debounce from "./utils/debounce";
+import useAppMount from "./hooks/useAppMount";
+import ActionMessageContainer from "./components/utils/ActionMessageContainer";
 
 
 
 const App = () => {
-  useEffect(() => {
-    // waiting one second before deciding that there is no connection
-    navigator.connection.onchange = debounce(() => {
-      const notifyId = navigator.clipboard.notifyId;
-      if (!navigator.onLine && !notifyId) {
-        navigator.clipboard.notifyId = notify({ message: "تحقق من إتصالك بالإنترنت", type: "error", autoClose: false });
-      } else if (!navigator.onLine && notifyId) {
-        notify({ message: "تم فقد الإتصال بالإنترنت", type: "error", autoClose: false });
-      } else if (navigator.onLine && notifyId) {
-        notify({ message: "تم إسترجاع الإتصال بالإنترنت", type: "success", autoClose: false });
-      }
-    }, 1000);
-
-    return () => {
-      navigator.connection.onchange = null;
-    };
-  }, []);
-
+  useAppMount()
   return (
     <>
       <NavBarLogin />

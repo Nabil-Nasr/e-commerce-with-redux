@@ -1,5 +1,4 @@
 import { Button } from "react-bootstrap";
-import ActionMessageContainer from "../utils/ActionMessageContainer";
 import useRawData from "../../hooks/useRawData";
 
 const AdminAddRawData = ({ formAction, pageHeader, children }) => {
@@ -14,7 +13,6 @@ const AdminAddRawData = ({ formAction, pageHeader, children }) => {
           <Button type="submit" variant="dark" className="py-2 rounded-0 ms-auto">حفظ التعديلات</Button>
         </div>
       </form>
-      <ActionMessageContainer />
     </div>
   );
 };

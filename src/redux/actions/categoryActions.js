@@ -12,7 +12,7 @@ export const getAllCategories = getAllItems({ url: "/api/v1/categories", GET_ALL
 
 
 
-export const createCategory = createFormDataItem({ url: "/api/v1/categories", CREATE_ITEM: CREATE_CATEGORY, CREATE_ITEM_ERROR: CREATE_CATEGORY_ERROR });
-
-
 export const categoryEnableLoading = () => ({ type: CATEGORY_ENABLE_LOADING });
+
+export const createCategory = createFormDataItem({ url: "/api/v1/categories", CREATE_ITEM: CREATE_CATEGORY, CREATE_ITEM_ERROR: CREATE_CATEGORY_ERROR ,itemEnableLoadingAction:categoryEnableLoading});
+

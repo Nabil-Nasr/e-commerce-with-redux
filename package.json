@@ -13,6 +13,7 @@
     "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",
     "react-image-gallery": "^1.2.12",
+    "react-multiple-image-input": "^1.0.0",
     "react-paginate": "^8.2.0",
     "react-rating-stars-component": "^2.2.0",
     "react-redux": "^8.1.1",

@@ -1,7 +1,7 @@
 import baseURL from "../../../api/baseURL";
 import { notify } from "../../../components/utils/ActionMessageContainer";
 
-const createFormDataItem = ({url,CREATE_ITEM,CREATE_ITEM_ERROR})=>(formData)=>async(dispatch)=>{
+const createFormDataItem = ({url,CREATE_ITEM,CREATE_ITEM_ERROR,itemEnableLoadingAction})=>(formData)=>async(dispatch)=>{
   const controller = new AbortController()
   const id = notify({message:"جاري الحفظ 0%",type:"loading",data:{action:()=>controller.abort()}})
 
@@ -21,6 +21,7 @@ const createFormDataItem = ({url,CREATE_ITEM,CREATE_ITEM_ERROR})=>(formData)=>as
       }
     }
 
+    dispatch(itemEnableLoadingAction())
     const {data} = await baseURL.postForm(url,formData,config)
 
     notify({message:"تم الحفظ بنجاح",type:"success",id})

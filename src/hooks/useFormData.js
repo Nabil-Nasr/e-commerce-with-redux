@@ -1,11 +1,11 @@
 import { useState } from "react";
 import uploadImg from "../assets/images/uploadImg.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { notify } from "../components/utils/ActionMessageContainer";
 import useUpdateEffect from "./useUpdateEffect";
 import validateSubmit from "../utils/validateSubmit";
 
-const useFormData = (formAction) => {
+const useFormData = ({ formAction, itemReducer = "category" }) => {
   const [imgSrc, setImgSrc] = useState(uploadImg);
   const handleImageChange = ({ target }) => {
     setImgSrc(target.files[0] ? URL.createObjectURL(target.files[0]) : uploadImg);
@@ -36,8 +36,9 @@ const useFormData = (formAction) => {
     setImgSrc(uploadImg);
   };
 
+  const { loading } = useSelector(state => state[itemReducer]);
 
-  return { handleSubmit, imgSrc, handleImageChange };
+  return { handleSubmit, imgSrc, handleImageChange, loading };
 };
 
 export default useFormData;
