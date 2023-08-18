@@ -6,6 +6,7 @@ import { getAllSubCategories } from "../../redux/actions/subCategoryActions";
 import { getAllBrands } from "../../redux/actions/brandActions";
 import useDebouncedState from "../../hooks/useDebouncedState";
 import AdminAddFormData from "../../components/Admin/AdminAddFormData";
+// must be removed in any chance
 import MultiImageInput from "react-multiple-image-input";
 import { useState } from "react";
 
@@ -17,11 +18,12 @@ const AdminAddProductPage = () => {
   useGetItemsWithParams({ params: { limit: 10, keyword: subCategoryKeyword }, getAllItemsAction: getAllSubCategories });
   useGetItemsWithParams({ params: { limit: 10, keyword: brandKeyword }, getAllItemsAction: getAllBrands });
 
-  const [images,setImages] = useState([])
+  const [images,setImages] = useState({})
 
   return (
     <AdminAddFormData pageHeader="إضافة منتج جديد" imgHeader="صورة المنتج" imgName="imageCover">
 
+      {/*must be removed in any chance */}
       <MultiImageInput
         images={images}
         setImages={setImages}
