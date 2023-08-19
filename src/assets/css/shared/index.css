@@ -18,4 +18,4 @@ body {
   flex-direction: column;
   min-height: 100vh;
   background-color:   rgba(var(--bs-tertiary-bg-rgb));
-};
+}

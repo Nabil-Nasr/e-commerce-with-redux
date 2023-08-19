@@ -17,7 +17,7 @@ root.classList.add("btn-outline-dark")
 createRoot(root)
   .render(
       <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.VITE_DEPLOYMENT_BASE_URL}>
           <App  />
         </BrowserRouter>
       </Provider>
