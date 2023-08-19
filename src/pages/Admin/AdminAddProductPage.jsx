@@ -9,6 +9,7 @@ import AdminAddFormData from "../../components/Admin/AdminAddFormData";
 // must be removed in any chance
 import MultiImageInput from "react-multiple-image-input";
 import { useState } from "react";
+import ColorsInput from "../../components/utils/ColorsInput";
 
 const AdminAddProductPage = () => {
   const [categoryKeyword, setCategoryKeyword] = useDebouncedState("", 500);
@@ -18,10 +19,10 @@ const AdminAddProductPage = () => {
   useGetItemsWithParams({ params: { limit: 10, keyword: subCategoryKeyword }, getAllItemsAction: getAllSubCategories });
   useGetItemsWithParams({ params: { limit: 10, keyword: brandKeyword }, getAllItemsAction: getAllBrands });
 
-  const [images,setImages] = useState({})
+  const [images, setImages] = useState({});
 
   return (
-    <AdminAddFormData pageHeader="إضافة منتج جديد" imgHeader="صورة المنتج" imgName="imageCover">
+    <AdminAddFormData pageHeader="إضافة منتج جديد" imgHeader="صورة المنتج الرئيسية" imgName="imageCover">
 
       {/*must be removed in any chance */}
       <MultiImageInput
@@ -35,6 +36,7 @@ const AdminAddProductPage = () => {
           modalColor: 'white',
         }}
         allowCrop={false}
+        max={5}
       />
 
       <input type="text" name="title" placeholder="إسم المنتج" className="p-2 form-control rounded-0" />
@@ -42,7 +44,7 @@ const AdminAddProductPage = () => {
 
       <input type="number" placeholder="الكمية" name="quantity" className="p-2 text-start form-control rounded-0" min="1" />
 
-      <input type="number" name="price" min="0" step="0.01" placeholder="السعر" className="p-2 text-start form-control rounded-0"/>
+      <input type="number" name="price" min="0" step="0.01" placeholder="السعر" className="p-2 text-start form-control rounded-0" />
 
       <input type="number" min="0" step="0.01" name="priceAfterDiscount" placeholder="السعر بعد الخصم" className="p-2 text-start form-control rounded-0" />
 
@@ -70,15 +72,12 @@ const AdminAddProductPage = () => {
 
       <div className="my-3">
         <div>الألوان المتاحة</div>
-        <div className="d-flex column-gap-2 mt-1">
-          <div className="border p-3 rounded-circle  bg-danger"></div>
-          <div className="border p-3 rounded-circle  bg-white"></div>
-          <div className="border p-3 rounded-circle  bg-black"></div>
-          <div className="border p-3 rounded-circle"><span className="position-absolute translate-middle">+</span></div>
-        </div>
+        <ColorsInput name="colors" maxColors={5}/>
       </div>
     </AdminAddFormData>
   );
 };
+
+
 
 export default AdminAddProductPage;

@@ -21,6 +21,7 @@
     "react": "^18.2.0",
     "react-awesome-reveal": "^4.2.5",
     "react-bootstrap": "^2.8.0",
+    "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-image-gallery": "^1.2.12",
     "react-multiple-image-input": "^1.0.0",
