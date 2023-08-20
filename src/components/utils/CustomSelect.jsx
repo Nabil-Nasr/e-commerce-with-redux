@@ -1,10 +1,11 @@
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Select from "react-select";
+import debounce from "../../utils/debounce";
 
 
-const CustomSelect = ({ isMulti, placeholder, onInputChange, allItemsReducer, name, ...props }) => {
-  const { data, loading, error } = useSelector((state) => state[allItemsReducer]);
+const CustomSelect = ({ isMulti, placeholder, onInputChange, allItemsReducer, name, onSelect, disableCache, ...props }) => {
+  const { data, loading, error = "" } = useSelector((state) => state[allItemsReducer]);
   const [cacheInputValue, setCacheInputValue] = useState("");
   const cacheObjectRef = useRef({});
   const cacheData = cacheObjectRef.current[cacheInputValue] || data;
@@ -13,22 +14,26 @@ const CustomSelect = ({ isMulti, placeholder, onInputChange, allItemsReducer, na
     <Select
       isMulti={isMulti}
       placeholder={placeholder}
-      onInputChange={inputValue => {
-        setCacheInputValue(inputValue);
+      onInputChange={debounce(inputValue => {
+        !disableCache && setCacheInputValue(inputValue);
         onInputChange(prev => {
-          if (cacheObjectRef.current[inputValue]) {
-            return prev;
-          }
-          if (!error) {
-            cacheObjectRef.current[prev] = data;
+          if (!disableCache) {
+            if (cacheObjectRef.current[inputValue]) {
+              return prev;
+            }
+            // regular expression error happens when the user types a special character
+            if (!error || error?.includes("Regular expression")) {
+              cacheObjectRef.current[prev] = data;
+            }
           }
           return inputValue;
         });
-      }}
+      }, 500)}
       name={name}
-      noOptionsMessage={() => !error ? "لا خيارات" : "تأكد من إتصالك بالإنترنت"}
+      noOptionsMessage={() => !error || error?.includes("Regular expression") ? "لا خيارات" : "حدث خطأ ما"}
       loadingMessage={() => "جاري البحث ..."}
       isLoading={loading}
+      onChange={onSelect}
       isRtl
 
       options={
@@ -59,7 +64,7 @@ const CustomSelect = ({ isMulti, placeholder, onInputChange, allItemsReducer, na
           return styles;
         },
         noOptionsMessage: styles => {
-          styles.color = error ? "var(--bs-danger)" : styles.color;
+          styles.color = error && !error?.includes("Regular expression") ? "var(--bs-danger)" : styles.color;
           return styles;
         },
         dropdownIndicator: styles => {

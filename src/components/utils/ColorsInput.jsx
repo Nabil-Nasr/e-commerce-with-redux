@@ -7,72 +7,81 @@ const colors = [
 
 
 const ColorsInput = ({ name, maxColors = colors.length }) => {
-  const [colorsSet, setColorsSet] = useState(new Set());
-  const [showColorsPicker, setShowColorsPicker] = useState(false);
+	const [colorsSet, setColorsSet] = useState(new Set());
+	const [showColorsPicker, setShowColorsPicker] = useState(false);
 
-  const canAddColors = colorsSet.size < (maxColors > colors.length ? colors.length : maxColors);
-  return (
-    <div className="d-flex gap-2 mt-1 position-relative flex-wrap">
-      {
-        [...colorsSet.keys()].map(color => (
-          <div
-            key={color}
-            style={{ backgroundColor: color }}
-            onClick={() => {
-              setColorsSet(prevColorsSet => {
-                prevColorsSet.delete(color);
-                return new Set(prevColorsSet);
-              });
-            }}
-            className="border p-3 rounded-circle"
-            role="button">
-            <input type="color" hidden name={name} value={color} readOnly />
-          </div>
-        ))
-      }
-      {
-        canAddColors &&
-        <div
-          onClick={() => {
-            setShowColorsPicker(prevShowColorsPicker => !prevShowColorsPicker);
-          }}
-          className="border p-3 rounded-circle position-relative"
-          role="button">
-          <span className="position-absolute translate-middle">+</span>
-        </div>
-      }
+	const canAddColors =
+		colorsSet.size <
+		(maxColors > colors.length ? colors.length : maxColors);
+	return (
+		<div className="d-flex gap-2 mt-1 position-relative flex-wrap">
+			{[...colorsSet.keys()].map(color => (
+				<div
+					key={color}
+					style={{ backgroundColor: color }}
+					onClick={() => {
+						setColorsSet(prevColorsSet => {
+							prevColorsSet.delete(color);
+							return new Set(prevColorsSet);
+						});
+					}}
+					className="border p-3 rounded-circle"
+					role="button">
+					<input
+						type="color"
+						hidden
+						name={name}
+						value={color}
+						readOnly
+					/>
+				</div>
+			))}
+			{canAddColors && (
+				<div
+					onClick={() => {
+						setShowColorsPicker(
+							prevShowColorsPicker => !prevShowColorsPicker
+						);
+					}}
+					className="border p-3 rounded-circle position-relative"
+					role="button">
+					<span className="position-absolute translate-middle">
+						+
+					</span>
+				</div>
+			)}
 
-      {
-        showColorsPicker && canAddColors &&
-        <div
-          className="position-absolute bottom-100 start-0 rounded-0 mb-1 ms-5">
-          <TwitterPicker
-            triangle="hide"
-            onChangeComplete={color => {
-              setColorsSet(prevColorsSet => {
-                const beforeAddSize = prevColorsSet.size;
-                prevColorsSet.add(color.hex);
-                if (beforeAddSize === prevColorsSet.size) {
-                  return prevColorsSet;
-                }
-                return new Set(prevColorsSet);
-              });
-            }}
-            colors={colors}
-
-            styles={{
-              default: {
-                input: { display: 'none' },
-                hash: { display: 'none' },
-                swatch: { borderRadius: 0, outline: '1px solid var(--bs-border-color)' },
-                card: { borderRadius: 0 }
-              }
-            }}
-          />
-        </div>
-      }
-    </div>
-  );
+			{showColorsPicker && canAddColors && (
+				<div className="position-absolute bottom-100 start-0 rounded-0 mb-1 ms-5">
+					<TwitterPicker
+						triangle="hide"
+						onChangeComplete={color => {
+							setColorsSet(prevColorsSet => {
+								const beforeAddSize = prevColorsSet.size;
+								prevColorsSet.add(color.hex);
+								if (beforeAddSize === prevColorsSet.size) {
+									return prevColorsSet;
+								}
+								return new Set(prevColorsSet);
+							});
+						}}
+						colors={colors}
+						styles={{
+							default: {
+								input: { display: "none" },
+								hash: { display: "none" },
+								swatch: {
+									borderRadius: 0,
+									outline: "1px solid var(--bs-border-color)",
+								},
+								card: { borderRadius: 0 },
+							},
+						}}
+					/>
+				</div>
+			)}
+		</div>
+	);
 };
 
 export default ColorsInput;

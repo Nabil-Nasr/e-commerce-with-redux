@@ -5,19 +5,22 @@ export const allItemsReducer = ({ GET_ALL_ITEMS, ALL_ITEMS_ENABLE_LOADING, GET_A
       return action.payload;
 
     case ALL_ITEMS_ENABLE_LOADING:
-      prevState.loading = true;
-      delete prevState.error
-      break;
+      return {
+        data:[],
+        loading: true
+      };
 
     case GET_ALL_ITEMS_ERROR:
-      prevState.loading = false;
-      prevState.error = action.error;
-      break;
+      return {
+        loading: false,
+        error: action.error,
+        data: []
+      };
 
     default:
+      return prevState;
   }
 
-  return prevState;
 };
 
 
@@ -28,17 +31,18 @@ export const itemReducer = ({ CREATE_ITEM, ITEM_ENABLE_LOADING, CREATE_ITEM_ERRO
       return action.payload;
 
     case ITEM_ENABLE_LOADING:
-      prevState.loading = true;
-      delete prevState.error
-      break;
+      return {
+        loading: true
+      };
 
     case CREATE_ITEM_ERROR:
-      prevState.loading = false;
-      prevState.error = action.error;
-      break;
+      return {
+        loading: false,
+        error: action.error,
+      };
 
     default:
+      return prevState;
   }
 
-  return prevState;
 };

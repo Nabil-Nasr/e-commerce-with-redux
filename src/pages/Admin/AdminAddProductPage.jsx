@@ -4,19 +4,25 @@ import useGetItemsWithParams from "../../hooks/useGetItemsWithParams";
 import { getAllCategories } from "../../redux/actions/categoryActions";
 import { getAllSubCategories } from "../../redux/actions/subCategoryActions";
 import { getAllBrands } from "../../redux/actions/brandActions";
-import useDebouncedState from "../../hooks/useDebouncedState";
 import AdminAddFormData from "../../components/Admin/AdminAddFormData";
 // must be removed in any chance
 import MultiImageInput from "react-multiple-image-input";
 import { useState } from "react";
 import ColorsInput from "../../components/utils/ColorsInput";
+import useUpdateEffect from "../../hooks/useUpdateEffect";
 
 const AdminAddProductPage = () => {
-  const [categoryKeyword, setCategoryKeyword] = useDebouncedState("", 500);
-  const [subCategoryKeyword, setSubCategoryKeyword] = useDebouncedState("", 500);
-  const [brandKeyword, setBrandKeyword] = useDebouncedState("", 500);
+  const [categoryKeyword, setCategoryKeyword] = useState("");
+  const [subCategoryKeyword, setSubCategoryKeyword] = useState("");
+  const [brandKeyword, setBrandKeyword] = useState("");
+
+  const [categoryId, setCategoryId] = useState("");
+
   useGetItemsWithParams({ params: { limit: 10, keyword: categoryKeyword }, getAllItemsAction: getAllCategories });
-  useGetItemsWithParams({ params: { limit: 10, keyword: subCategoryKeyword }, getAllItemsAction: getAllSubCategories });
+
+  // useUpdateEffect here is required because of the initial categoryId is empty string which is not valid
+  useGetItemsWithParams({ params: { limit: 10, keyword: subCategoryKeyword, category: categoryId }, getAllItemsAction: getAllSubCategories, useEffectHook: useUpdateEffect });
+
   useGetItemsWithParams({ params: { limit: 10, keyword: brandKeyword }, getAllItemsAction: getAllBrands });
 
   const [images, setImages] = useState({});
@@ -52,15 +58,18 @@ const AdminAddProductPage = () => {
         placeholder="التصنيف الرئيسي"
         allItemsReducer="allCategories"
         onInputChange={setCategoryKeyword}
+        onSelect={({ value }) => setCategoryId(value)}
         name="category"
       />
 
       <CustomSelect
         isMulti
-        placeholder="التصنيفات الفرعية"
+        placeholder={!categoryId ? "التصنيفات الفرعية (إختر تصنيف رئيسي أولا)" : "التصنيفات الفرعية"}
         allItemsReducer="allSubCategories"
         onInputChange={setSubCategoryKeyword}
         name="subcategories"
+        // disabling cache to avoid showing the same options when main category changes
+        disableCache
       />
 
       <CustomSelect
@@ -72,7 +81,7 @@ const AdminAddProductPage = () => {
 
       <div className="my-3">
         <div>الألوان المتاحة</div>
-        <ColorsInput name="colors" maxColors={5}/>
+        <ColorsInput name="colors" maxColors={5} />
       </div>
     </AdminAddFormData>
   );
