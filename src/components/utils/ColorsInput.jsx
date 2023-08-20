@@ -45,9 +45,7 @@ const ColorsInput = ({ name, maxColors = colors.length }) => {
 					}}
 					className="border p-3 rounded-circle position-relative"
 					role="button">
-					<span className="position-absolute translate-middle">
-						+
-					</span>
+						<i className={`position-absolute  translate-middle far fa-${showColorsPicker?"rectangle-xmark text-danger":"plus text-success"}`}></i>
 				</div>
 			)}
 
