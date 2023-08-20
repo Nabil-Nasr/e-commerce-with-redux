@@ -2,8 +2,9 @@ import UploadImg from "../utils/UploadImg/UploadImg";
 import { Button } from "react-bootstrap";
 import useFormData from "../../hooks/useFormData";
 
-const AdminAddFormData = ({ formAction, itemReducer, pageHeader, imgHeader, imgName, children }) => {
-  const { handleSubmit, imgSrc, handleImageChange, loading } = useFormData({ formAction, itemReducer });
+const AdminAddFormData = ({ formAction, itemReducer, pageHeader, imgHeader, imgName,appendFormData, children }) => {
+  const { handleSubmit, imgSrc, handleImageChange, loading } = useFormData({ formAction, itemReducer,appendFormData });
+  
   return (
     <div>
       <h3 className="fw-bold">{pageHeader}</h3>

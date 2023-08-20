@@ -1,15 +1,21 @@
 const validateSubmit = (formHTMLElement) => {
   const formObject = {};
   for (let input of formHTMLElement) {
-    if ((typeof input.id === "string" && input.id.startsWith("react-select")) 
+    if ((input.id?.startsWith?.("react-select"))
+        // for react color text input
+        || input.id?.startsWith?.("rc-editable")
         || input.tagName === "BUTTON") continue;
 
     switch (input.type) {
       case "file":
+        // to prevent using multi image input library file input
+        if(input.name)
         formObject[input.name] = input.files;
         break;
 
       case "text":
+      case "textarea":
+      case "number":
         formObject[input.name] = input.value;
         break;
 

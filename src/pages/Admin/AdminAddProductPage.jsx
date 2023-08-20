@@ -10,6 +10,7 @@ import MultiImageInput from "react-multiple-image-input";
 import { useState } from "react";
 import ColorsInput from "../../components/utils/ColorsInput";
 import useUpdateEffect from "../../hooks/useUpdateEffect";
+import { createProduct } from "../../redux/actions/productActions";
 
 const AdminAddProductPage = () => {
   const [categoryKeyword, setCategoryKeyword] = useState("");
@@ -26,10 +27,18 @@ const AdminAddProductPage = () => {
   useGetItemsWithParams({ params: { limit: 10, keyword: brandKeyword }, getAllItemsAction: getAllBrands });
 
   const [images, setImages] = useState({});
+  const appendFormData = async formData => {
+    // create a blob from base64 image and append it to formData
+    for(const imageKey in images){
+      const imageBlob = await fetch(images[imageKey]).then(res=>res.blob())
+      formData.append("images",imageBlob);
+    }
+  }
 
   return (
-    <AdminAddFormData pageHeader="إضافة منتج جديد" imgHeader="صورة المنتج الرئيسية" imgName="imageCover">
+    <AdminAddFormData formAction={createProduct} itemReducer="product" pageHeader="إضافة منتج جديد" imgHeader="صورة المنتج الرئيسية" imgName="imageCover" appendFormData={appendFormData}>
 
+      <div className="text-secondary mt-3">صور المنتج الثانوية</div>
       {/*must be removed in any chance */}
       <MultiImageInput
         images={images}
@@ -67,7 +76,7 @@ const AdminAddProductPage = () => {
         placeholder={!categoryId ? "التصنيفات الفرعية (إختر تصنيف رئيسي أولا)" : "التصنيفات الفرعية"}
         allItemsReducer="allSubCategories"
         onInputChange={setSubCategoryKeyword}
-        name="subcategories"
+        name="subcategory"
         // disabling cache to avoid showing the same options when main category changes
         disableCache
       />
@@ -81,7 +90,7 @@ const AdminAddProductPage = () => {
 
       <div className="my-3">
         <div>الألوان المتاحة</div>
-        <ColorsInput name="colors" maxColors={5} />
+        <ColorsInput name="availableColors" maxColors={5} />
       </div>
     </AdminAddFormData>
   );

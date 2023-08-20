@@ -5,7 +5,7 @@ import { notify } from "../components/utils/ActionMessageContainer";
 import useUpdateEffect from "./useUpdateEffect";
 import validateSubmit from "../utils/validateSubmit";
 
-const useFormData = ({ formAction, itemReducer = "category" }) => {
+const useFormData = ({ formAction, itemReducer = "category",appendFormData }) => {
   const [imgSrc, setImgSrc] = useState(uploadImg);
   const handleImageChange = ({ target }) => {
     setImgSrc(target.files[0] ? URL.createObjectURL(target.files[0]) : uploadImg);
@@ -28,6 +28,7 @@ const useFormData = ({ formAction, itemReducer = "category" }) => {
     }
 
     const formData = new FormData(event.target);
+    await appendFormData?.(formData);
     const { error } = await dispatch(formAction(formData));
     if (error) return;
 
