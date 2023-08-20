@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 import debounce from "../../utils/debounce";
@@ -10,25 +10,27 @@ const CustomSelect = ({ isMulti, placeholder, onInputChange, allItemsReducer, na
   const cacheObjectRef = useRef({});
   const cacheData = cacheObjectRef.current[cacheInputValue] || data;
 
+  // saving debounce invokes
+  const memoizedOnInputChange = useMemo(() => debounce(inputValue => {
+    !disableCache && setCacheInputValue(inputValue);
+    onInputChange(prev => {
+      if (!disableCache) {
+        if (cacheObjectRef.current[inputValue]) {
+          return prev;
+        }
+        // regular expression error happens when the user types a special character
+        if (!error || error?.includes("Regular expression")) {
+          cacheObjectRef.current[prev] = data;
+        }
+      }
+      return inputValue;
+    });
+  }, 500), [loading, error]);
   return (
     <Select
       isMulti={isMulti}
       placeholder={placeholder}
-      onInputChange={debounce(inputValue => {
-        !disableCache && setCacheInputValue(inputValue);
-        onInputChange(prev => {
-          if (!disableCache) {
-            if (cacheObjectRef.current[inputValue]) {
-              return prev;
-            }
-            // regular expression error happens when the user types a special character
-            if (!error || error?.includes("Regular expression")) {
-              cacheObjectRef.current[prev] = data;
-            }
-          }
-          return inputValue;
-        });
-      }, 500)}
+      onInputChange={memoizedOnInputChange}
       name={name}
       noOptionsMessage={() => !error || error?.includes("Regular expression") ? "لا خيارات" : "حدث خطأ ما"}
       loadingMessage={() => "جاري البحث ..."}
