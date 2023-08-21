@@ -8,7 +8,7 @@ import AdminAddRawData from "../../components/Admin/AdminAddRawData";
 
 const AdminAddSubcategoryPage = () => {
   const [keyword, setKeyword] = useDebouncedState("", 500);
-  useGetItemsWithParams({ params: { limit: 10, keyword }, getAllItemsAction: getAllCategories });
+  useGetItemsWithParams({ params: { limit: 10, keyword, fields: "name" }, getAllItemsAction: getAllCategories });
 
   return (
     <AdminAddRawData formAction={createSubCategory} pageHeader="إضافة تصنيف فرعي جديد">

@@ -19,21 +19,22 @@ const AdminAddProductPage = () => {
 
   const [categoryId, setCategoryId] = useState("");
 
-  useGetItemsWithParams({ params: { limit: 10, keyword: categoryKeyword }, getAllItemsAction: getAllCategories });
+  const fields = "name";
+  useGetItemsWithParams({ params: { limit: 10, keyword: categoryKeyword, fields }, getAllItemsAction: getAllCategories });
 
   // useUpdateEffect here is required because of the initial categoryId is empty string which is not valid
-  useGetItemsWithParams({ params: { limit: 10, keyword: subCategoryKeyword, category: categoryId }, getAllItemsAction: getAllSubCategories, useEffectHook: useUpdateEffect });
+  useGetItemsWithParams({ params: { limit: 10, keyword: subCategoryKeyword, category: categoryId, fields }, getAllItemsAction: getAllSubCategories, useEffectHook: useUpdateEffect });
 
-  useGetItemsWithParams({ params: { limit: 10, keyword: brandKeyword }, getAllItemsAction: getAllBrands });
+  useGetItemsWithParams({ params: { limit: 10, keyword: brandKeyword, fields }, getAllItemsAction: getAllBrands });
 
   const [images, setImages] = useState({});
   const appendFormData = async formData => {
     // create a blob from base64 image and append it to formData
-    for(const imageKey in images){
-      const imageBlob = await fetch(images[imageKey]).then(res=>res.blob())
-      formData.append("images",imageBlob);
+    for (const imageKey in images) {
+      const imageBlob = await fetch(images[imageKey]).then(res => res.blob());
+      formData.append("images", imageBlob);
     }
-  }
+  };
 
   return (
     <AdminAddFormData formAction={createProduct} itemReducer="product" pageHeader="إضافة منتج جديد" imgHeader="صورة المنتج الرئيسية" imgName="imageCover" appendFormData={appendFormData}>

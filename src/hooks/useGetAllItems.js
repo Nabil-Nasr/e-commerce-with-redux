@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 
-const useGetAllItems = ({allItemsReducer,getAllItemsAction}) => {
+const useGetAllItems = ({ allItemsReducer, getAllItemsAction }) => {
   const limit = 7;
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
@@ -19,11 +19,11 @@ const useGetAllItems = ({allItemsReducer,getAllItemsAction}) => {
   const page = searchParams.get("page");
   useEffect(() => {
     const controller = new AbortController();
-    dispatch(getAllItemsAction({ params: { limit, page }, signal: controller.signal }));
+    dispatch(getAllItemsAction({ params: { limit, page, fields: "name,image" }, signal: controller.signal }));
     return () => controller.abort();
   }, [page]);
 
-  return {  numberOfPages, applyPagination, currentPage }
-}
+  return { numberOfPages, applyPagination, currentPage };
+};
 
 export default useGetAllItems;
