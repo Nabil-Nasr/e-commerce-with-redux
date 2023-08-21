@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 
 const BrandCardsContainer = ({ title, btnTitle, btnPath }) => {
-  const { data: brands, loading, error } = useSelector(({ allBrands }) => allBrands);
+  const { itemsData: brands, loading, error } = useSelector(({ brand }) => brand);
 
   return (
     <div>

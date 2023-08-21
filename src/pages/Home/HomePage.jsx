@@ -9,8 +9,8 @@ import { getAllCategories } from "../../redux/actions/categoryActions";
 import { getAllBrands } from "../../redux/actions/brandActions";
 
 const HomePage = () => {
-  useGetItemsWithParams({ getAllItemsAction: getAllCategories, params: { limit: 6, fields: "name,image" } });
-  useGetItemsWithParams({ getAllItemsAction: getAllBrands, params: { limit: 6, fields: "name,image" } });
+  useGetItemsWithParams({ getAllItems: getAllCategories, params: { limit: 3, fields: "name,image" } });
+  useGetItemsWithParams({ getAllItems: getAllBrands, params: { limit: 6, fields: "name,image" } });
   return (
     <>
       <Slider />

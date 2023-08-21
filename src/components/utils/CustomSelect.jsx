@@ -4,11 +4,11 @@ import Select from "react-select";
 import debounce from "../../utils/debounce";
 
 
-const CustomSelect = ({ isMulti, placeholder, onInputChange, allItemsReducer, name, onSelect, disableCache, ...props }) => {
-  const { data, loading, error = "" } = useSelector((state) => state[allItemsReducer]);
+const CustomSelect = ({ isMulti, placeholder, onInputChange, itemReducer, name, onSelect, disableCache, ...props }) => {
+  const { itemsData, loading, error } = useSelector((state) => state[itemReducer]);
   const [cacheInputValue, setCacheInputValue] = useState("");
   const cacheObjectRef = useRef({});
-  const cacheData = cacheObjectRef.current[cacheInputValue] || data;
+  const cacheData = cacheObjectRef.current[cacheInputValue] || itemsData;
 
   // saving debounce invokes
   const memoizedOnInputChange = useMemo(() => debounce(inputValue => {
@@ -20,7 +20,7 @@ const CustomSelect = ({ isMulti, placeholder, onInputChange, allItemsReducer, na
         }
         // regular expression error happens when the user types a special character
         if (!error || error?.includes("Regular expression")) {
-          cacheObjectRef.current[prev] = data;
+          cacheObjectRef.current[prev] = itemsData;
         }
       }
       return inputValue;

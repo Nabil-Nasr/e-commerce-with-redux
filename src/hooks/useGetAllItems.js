@@ -2,10 +2,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 
-const useGetAllItems = ({ allItemsReducer, getAllItemsAction }) => {
+const useGetAllItems = ({ itemReducer, getAllItems, itemEnableLoading }) => {
   const limit = 7;
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(itemEnableLoading());
+  }, []);
+
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
+  const page = searchParams.get("page");
+  useEffect(() => {
+    const controller = new AbortController();
+    dispatch(getAllItems({ params: { limit, page, fields: "name,image" }, signal: controller.signal }));
+    return () => controller.abort();
+  }, [page]);
 
   const applyPagination = (page) => {
     setSearchParams((searchParams) => {
@@ -14,14 +25,8 @@ const useGetAllItems = ({ allItemsReducer, getAllItemsAction }) => {
     });
   };
 
-  const { paginationResult: { currentPage, numberOfPages } = {} } = useSelector(state => state[allItemsReducer]);
+  const { paginationResult: { currentPage, numberOfPages } } = useSelector(state => state[itemReducer]);
 
-  const page = searchParams.get("page");
-  useEffect(() => {
-    const controller = new AbortController();
-    dispatch(getAllItemsAction({ params: { limit, page, fields: "name,image" }, signal: controller.signal }));
-    return () => controller.abort();
-  }, [page]);
 
   return { numberOfPages, applyPagination, currentPage };
 };

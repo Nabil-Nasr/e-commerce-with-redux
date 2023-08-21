@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const backgroundColors = ["#FFCCBC", "#F4DBA5", "#55CFDF", "#2196F3", "#FFD3E8"];
 
 const CategoryCardsContainer = ({ title, btnTitle, btnPath }) => {
-  const { data: categories, loading, error } = useSelector(({ allCategories }) => allCategories);
+  const { itemsData: categories, loading, error } = useSelector(({ category }) => category);
 
   return (
     <div className="d-grid row-gap-3">

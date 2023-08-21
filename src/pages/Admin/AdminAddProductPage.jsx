@@ -20,12 +20,12 @@ const AdminAddProductPage = () => {
   const [categoryId, setCategoryId] = useState("");
 
   const fields = "name";
-  useGetItemsWithParams({ params: { limit: 10, keyword: categoryKeyword, fields }, getAllItemsAction: getAllCategories });
+  useGetItemsWithParams({ params: { limit: 10, keyword: categoryKeyword, fields }, getAllItems: getAllCategories });
 
   // useUpdateEffect here is required because of the initial categoryId is empty string which is not valid
-  useGetItemsWithParams({ params: { limit: 10, keyword: subCategoryKeyword, category: categoryId, fields }, getAllItemsAction: getAllSubCategories, useEffectHook: useUpdateEffect });
+  useGetItemsWithParams({ params: { limit: 10, keyword: subCategoryKeyword, category: categoryId, fields }, getAllItems: getAllSubCategories, useEffectHook: useUpdateEffect });
 
-  useGetItemsWithParams({ params: { limit: 10, keyword: brandKeyword, fields }, getAllItemsAction: getAllBrands });
+  useGetItemsWithParams({ params: { limit: 10, keyword: brandKeyword, fields }, getAllItems: getAllBrands });
 
   const [images, setImages] = useState({});
   const appendFormData = async formData => {
@@ -66,7 +66,7 @@ const AdminAddProductPage = () => {
 
       <CustomSelect
         placeholder="التصنيف الرئيسي"
-        allItemsReducer="allCategories"
+        itemReducer="category"
         onInputChange={setCategoryKeyword}
         onSelect={({ value }) => setCategoryId(value)}
         name="category"
@@ -75,7 +75,7 @@ const AdminAddProductPage = () => {
       <CustomSelect
         isMulti
         placeholder={!categoryId ? "التصنيفات الفرعية (إختر تصنيف رئيسي أولا)" : "التصنيفات الفرعية"}
-        allItemsReducer="allSubCategories"
+        itemReducer="subCategory"
         onInputChange={setSubCategoryKeyword}
         name="subcategory"
         // disabling cache to avoid showing the same options when main category changes
@@ -84,7 +84,7 @@ const AdminAddProductPage = () => {
 
       <CustomSelect
         placeholder="الماركة"
-        allItemsReducer="allBrands"
+        itemReducer="brand"
         onInputChange={setBrandKeyword}
         name="brand"
       />
