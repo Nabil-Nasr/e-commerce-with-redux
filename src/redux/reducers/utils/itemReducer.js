@@ -22,6 +22,7 @@ const initialState = {
 export const itemReducer = ({ GET_ALL_ITEMS, CREATE_ITEM, ITEM_ENABLE_LOADING, ITEM_ERROR }) => (prevState = initialState, action) => {
   switch (action.type) {
     case GET_ALL_ITEMS:
+      // this will affect the return value of the dispatch function in the action function (because the reducer invoked before the return)
       action.payload.itemsData = action.payload.data;
       delete action.payload.data;
       return {

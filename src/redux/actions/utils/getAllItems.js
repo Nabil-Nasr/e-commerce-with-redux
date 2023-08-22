@@ -7,12 +7,12 @@ const getAllItems = ({ url, GET_ALL_ITEMS, ITEM_ERROR, itemEnableLoading }) => (
       dispatch(itemEnableLoading());
     const { data } = await baseURL.get(url,
       { params, signal, ...config });
-    dispatch({
+    return dispatch({
       type: GET_ALL_ITEMS,
       payload: data
     });
   } catch ({ response, message }) {
-    dispatch({
+    return dispatch({
       type: ITEM_ERROR,
       error: `Error: ${response ? response.data?.message : message}`
     });
