@@ -1,11 +1,11 @@
 import UnopDropdown from "unop-react-dropdown";
 import "./SearchDropdown.css"
 
-const SearchDropdown = () => {
+const SearchDropdown = ({searchResults}) => {
   return (
     <>
       <div className="d-flex justify-content-between py-2">
-          <div className="fs-4 fw-bold">400 نتيجة بحث</div>
+          <div className="fs-4 fw-bold">{searchResults} نتيجة بحث</div>
           <UnopDropdown trigger={<div className="fs-4"><i className="fas fa-arrow-down-wide-short"></i> ترتيب حسب</div>} dropdownMenuClassName="drop-down-menu " align="LEFT">
 
               <div>الأكثر مبيعا</div>

@@ -15,6 +15,7 @@ const ProductCardsContainer = ({ btnTitle, btnPath, title, payload }) => {
             products.map(product =>
               <ProductCard
                 key={product._id}
+                id={product._id}
                 title={product.title}
                 imgSrc={product.imageCover}
                 ratingsAverage={product.ratingsAverage}

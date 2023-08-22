@@ -18,7 +18,7 @@ const RatesContainer = () => {
       <UserRate/>
       <UserRate/>
       <UserRate/>
-      <Pagination pageCount={40}/>
+      <Pagination itemReducer="category"/>
     </div>
   );
 }

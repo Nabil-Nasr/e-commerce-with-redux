@@ -6,7 +6,7 @@ const AdminAllProductsPage = () => {
     <div>
       <h3 className="fw-bold">إدارة جميع المنتجات</h3>
       <AdminProductCardsContainer/>
-      <Pagination pageCount={44}/>
+      {/* <Pagination pageCount={44}/> */}
     </div>
   );
 }

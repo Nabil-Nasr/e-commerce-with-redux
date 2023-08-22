@@ -1,14 +1,15 @@
-import useGetItemsWithParams from "../../hooks/useGetItemsWithParams";
+import useGetWithParams from "../../hooks/useGetWithParams";
 import { getAllCategories } from "../../redux/actions/categoryActions";
 import CustomSelect from "../../components/utils/CustomSelect";
-import useDebouncedState from "../../hooks/useDebouncedState";
 import { createSubCategory } from "../../redux/actions/subCategoryActions";
 import AdminAddRawData from "../../components/Admin/AdminAddRawData";
+import { customSelectFields, customSelectLimit } from "../../utils/itemRequestQueries";
+import { useState } from "react";
 
 
 const AdminAddSubcategoryPage = () => {
-  const [keyword, setKeyword] = useDebouncedState("", 500);
-  useGetItemsWithParams({ params: { limit: 10, keyword, fields: "name" }, getAllItems: getAllCategories });
+  const [keyword, setKeyword] = useState("");
+  useGetWithParams({ params: { limit: customSelectLimit, keyword, fields: customSelectFields }, getAction: getAllCategories });
 
   return (
     <AdminAddRawData formAction={createSubCategory} pageHeader="إضافة تصنيف فرعي جديد">

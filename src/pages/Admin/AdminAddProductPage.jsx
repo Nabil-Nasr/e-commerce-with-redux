@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 import CustomSelect from "../../components/utils/CustomSelect";
-import useGetItemsWithParams from "../../hooks/useGetItemsWithParams";
+import useGetWithParams from "../../hooks/useGetWithParams";
 import { getAllCategories } from "../../redux/actions/categoryActions";
 import { getAllSubCategories } from "../../redux/actions/subCategoryActions";
 import { getAllBrands } from "../../redux/actions/brandActions";
@@ -11,6 +11,7 @@ import { useState } from "react";
 import ColorsInput from "../../components/utils/ColorsInput";
 import useUpdateEffect from "../../hooks/useUpdateEffect";
 import { createProduct } from "../../redux/actions/productActions";
+import { customSelectFields, customSelectLimit } from "../../utils/itemRequestQueries";
 
 const AdminAddProductPage = () => {
   const [categoryKeyword, setCategoryKeyword] = useState("");
@@ -19,13 +20,14 @@ const AdminAddProductPage = () => {
 
   const [categoryId, setCategoryId] = useState("");
 
-  const fields = "name";
-  useGetItemsWithParams({ params: { limit: 10, keyword: categoryKeyword, fields }, getAllItems: getAllCategories });
+  const limit = customSelectLimit;
+  const fields = customSelectFields;
+  useGetWithParams({ params: { limit, keyword: categoryKeyword, fields }, getAction: getAllCategories });
 
   // useUpdateEffect here is required because of the initial categoryId is empty string which is not valid
-  useGetItemsWithParams({ params: { limit: 10, keyword: subCategoryKeyword, category: categoryId, fields }, getAllItems: getAllSubCategories, useEffectHook: useUpdateEffect });
+  useGetWithParams({ params: { limit, keyword: subCategoryKeyword, category: categoryId, fields }, getAction: getAllSubCategories, useEffectHook: useUpdateEffect });
 
-  useGetItemsWithParams({ params: { limit: 10, keyword: brandKeyword, fields }, getAllItems: getAllBrands });
+  useGetWithParams({ params: { limit, keyword: brandKeyword, fields }, getAction: getAllBrands });
 
   const [images, setImages] = useState({});
   const appendFormData = async formData => {

@@ -2,13 +2,13 @@ import { Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import './ProductCard.css';
 
-const ProductCard = ({ title, ratingsAverage, ratingsQuantity, price, priceAfterDiscount, imgSrc, subElement }) => {
+const ProductCard = ({ id, title, ratingsAverage, ratingsQuantity, price, priceAfterDiscount, imgSrc, subElement }) => {
   return (
     <Col xs="4" md="3" xxl="2" className="px-2">
       <div className="card rounded-0 shadow-sm">
         {/* subElement for usage with admin CRUD operations */}
         {subElement}
-        <Link to={`/products/:id`}>
+        <Link to={`/products/${id}`}>
           <img src={imgSrc} alt={title} className="w-100 " />
         </Link>
         <div className="p-2">

@@ -4,27 +4,26 @@ import ProductCardsContainer from "../../components/Product/ProductCardsContaine
 import DiscountSection from "../../components/Home/DiscountSection";
 import BrandCardsContainer from "../../components/Brand/BrandCardsContainer";
 import CategoryCardsContainer from "../../components/Category/CategoryCardsContainer";
-import useGetItemsWithParams from "../../hooks/useGetItemsWithParams";
+import useGetWithParams from "../../hooks/useGetWithParams";
 import { getAllCategories } from "../../redux/actions/categoryActions";
 import { getAllProducts } from "../../redux/actions/productActions";
 import { getAllBrands } from "../../redux/actions/brandActions";
+import { brandCardFields, brandCardsLimit, categoryCardFields, categoryCardsLimit, productCardFields, productCardsLimit } from "../../utils/itemRequestQueries";
 
 const HomePage = () => {
-  useGetItemsWithParams({ getAllItems: getAllCategories, params: { limit: 6, fields: "name,image" } });
+  useGetWithParams({ getAction: getAllCategories, params: { limit: categoryCardsLimit, fields: categoryCardFields } });
 
-  const productsLimit = 6;
-  const productsFields = "title,price,priceAfterDiscount,imageCover,ratingsAverage,ratingsQuantity";
-  const { payload: mostSoldPayload } = useGetItemsWithParams({
-    getAllItems: getAllProducts, params: {
-      limit: productsLimit,
+  const { payload: mostSoldPayload } = useGetWithParams({
+    getAction: getAllProducts, params: {
+      limit: productCardsLimit,
       // sort depend on highest sold then highest quantity
-      fields: productsFields, sort: "-sold,-quantity"
+      fields: productCardFields, sort: "-sold,-quantity"
     }, returnPayload: true
   });
 
-  const { payload: highestRatePayload } = useGetItemsWithParams({ getAllItems: getAllProducts, params: { limit: productsLimit, fields: productsFields, sort: "-ratingsAverage,-ratingsQuantity" }, returnPayload: true });
+  const { payload: highestRatePayload } = useGetWithParams({ getAction: getAllProducts, params: { limit: productCardsLimit, fields: productCardFields, sort: "-ratingsAverage,-ratingsQuantity" }, returnPayload: true });
 
-  useGetItemsWithParams({ getAllItems: getAllBrands, params: { limit: 6, fields: "name,image" } });
+  useGetWithParams({ getAction: getAllBrands, params: { limit: brandCardsLimit, fields: brandCardFields } });
   return (
     <>
       <Slider />
@@ -36,7 +35,7 @@ const HomePage = () => {
         <DiscountSection />
       </Container>
       <Container className="d-flex flex-column row-gap-5 my-5">
-        <ProductCardsContainer btnTitle="المزيد" title="أرقي المنتجات" btnPath="/products" payload={highestRatePayload} />
+        <ProductCardsContainer btnTitle="المزيد" title="الأعلي تقييما" btnPath="/products" payload={highestRatePayload} />
         <BrandCardsContainer btnPath="/brands" btnTitle="المزيد" title="أشهر الماركات" />
       </Container>
     </>

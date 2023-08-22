@@ -3,14 +3,15 @@ import CategoryCardsContainer from "../../components/Category/CategoryCardsConta
 import Pagination from "../../components/utils/Pagination/Pagination";
 import { categoryEnableLoading, getAllCategories } from "../../redux/actions/categoryActions";
 import useGetAllItems from "../../hooks/useGetAllItems";
+import { categoryCardFields } from "../../utils/itemRequestQueries";
 
 const CategoriesPage = () => {
-  const { numberOfPages, applyPagination, currentPage } = useGetAllItems({ itemReducer: "category", getAllItems: getAllCategories, itemEnableLoading: categoryEnableLoading });
+  const { applyPagination } = useGetAllItems({ getAllItems: getAllCategories, itemEnableLoading: categoryEnableLoading, responseFields: categoryCardFields });
 
   return (
     <Container className="my-4">
       <CategoryCardsContainer title="كل التصنيفات" />
-      <Pagination pageCount={numberOfPages} applyPagination={applyPagination} currentPage={currentPage} />
+      <Pagination itemReducer="category" applyPagination={applyPagination} />
     </Container>
   );
 };

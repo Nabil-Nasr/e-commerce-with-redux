@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-const useGetItemsWithParams = ({ params = {}, getAllItems, useEffectHook = useEffect, returnPayload = false }) => {
+const useGetWithParams = ({ params = {}, getAction, useEffectHook = useEffect, returnPayload = false }) => {
   let payload, setPayload;
   if (returnPayload) {
     // to use payload instead of useSelector to use multiple card containers in the same page
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    [payload, setPayload] = useState({ itemsData: [], loading: true, error: null });
+    [payload, setPayload] = useState({ itemsData: [], itemData: {}, loading: true, error: null });
   }
 
 
@@ -17,7 +17,7 @@ const useGetItemsWithParams = ({ params = {}, getAllItems, useEffectHook = useEf
 
 
     // then method will be called after dispatching the action and the reducer but it get the dispatched object only not the reducer returned value (the object can be manipulated in the reducer with reference assignment) 
-    dispatch(getAllItems({ params, signal: controller.signal }))
+    dispatch(getAction({ params, signal: controller.signal }))
       .then(action => setPayload?.(prevState => {
         if (action.payload) {
           return {
@@ -46,4 +46,4 @@ const useGetItemsWithParams = ({ params = {}, getAllItems, useEffectHook = useEf
   }
 };
 
-export default useGetItemsWithParams;
+export default useGetWithParams;

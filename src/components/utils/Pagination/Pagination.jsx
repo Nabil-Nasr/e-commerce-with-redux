@@ -1,7 +1,10 @@
 import ReactPaginate from "react-paginate";
 import "./Pagination.css";
+import { useSelector } from "react-redux";
 
-const Pagination = ({ applyPagination, pageCount, currentPage }) => {
+const Pagination = ({ itemReducer, applyPagination }) => {
+  const { paginationResult: { currentPage, numberOfPages } } = useSelector(state => state[itemReducer]);
+
   const handlePageChange = ({ selected }) => {
     // The selected is starting from 0
     const page = selected + 1;
@@ -15,7 +18,7 @@ const Pagination = ({ applyPagination, pageCount, currentPage }) => {
       onPageChange={handlePageChange}
       pageRangeDisplayed={5}
       marginPagesDisplayed={2}
-      pageCount={!pageCount || pageCount <= 1 ? 0 : pageCount}
+      pageCount={!numberOfPages || numberOfPages <= 1 ? 0 : numberOfPages}
       previousLabel="السابق"
       renderOnZeroPageCount={null}
       containerClassName="pagination pt-5 justify-content-center flex-wrap row-gap-1"
@@ -29,7 +32,7 @@ const Pagination = ({ applyPagination, pageCount, currentPage }) => {
       breakClassName="page-item"
       breakLinkClassName="page-link"
       disabledClassName="disabled"
-      forcePage={!currentPage || (currentPage === 1 && pageCount <= 1) ? -1 : currentPage - 1}
+      forcePage={!currentPage || (currentPage === 1 && numberOfPages <= 1) ? -1 : currentPage - 1}
     />
   );
 };
