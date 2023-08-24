@@ -1,16 +1,15 @@
-import { Form } from "react-bootstrap";
-import CustomSelect from "../../components/utils/CustomSelect";
-import useGetWithParams from "../../hooks/useGetWithParams";
-import { getAllCategories } from "../../redux/actions/categoryActions";
-import { getAllSubCategories } from "../../redux/actions/subCategoryActions";
-import { getAllBrands } from "../../redux/actions/brandActions";
-import AdminAddFormData from "../../components/Admin/AdminAddFormData";
-// must be removed in any chance
-import MultiImageInput from "react-multiple-image-input";
 import { useState } from "react";
+import { Form } from "react-bootstrap";
+import AdminAddFormData from "../../components/Admin/AdminAddFormData";
 import ColorsInput from "../../components/utils/ColorsInput";
+import CustomSelect from "../../components/utils/CustomSelect";
+import ImagesInput from "../../components/utils/ImagesInput";
+import useGetWithParams from "../../hooks/useGetWithParams";
 import useUpdateEffect from "../../hooks/useUpdateEffect";
+import { getAllBrands } from "../../redux/actions/brandActions";
+import { getAllCategories } from "../../redux/actions/categoryActions";
 import { createProduct } from "../../redux/actions/productActions";
+import { getAllSubCategories } from "../../redux/actions/subCategoryActions";
 import { customSelectFields, customSelectLimit } from "../../utils/itemRequestQueries";
 
 const AdminAddProductPage = () => {
@@ -29,33 +28,12 @@ const AdminAddProductPage = () => {
 
   useGetWithParams({ params: { limit, keyword: brandKeyword, fields }, getAction: getAllBrands });
 
-  const [images, setImages] = useState({});
-  const appendFormData = async formData => {
-    // create a blob from base64 image and append it to formData
-    for (const imageKey in images) {
-      const imageBlob = await fetch(images[imageKey]).then(res => res.blob());
-      formData.append("images", imageBlob);
-    }
-  };
 
   return (
-    <AdminAddFormData formAction={createProduct} itemReducer="product" pageHeader="إضافة منتج جديد" imgHeader="صورة المنتج الرئيسية" imgName="imageCover" appendFormData={appendFormData}>
+    <AdminAddFormData formAction={createProduct} itemReducer="product" pageHeader="إضافة منتج جديد" imgHeader="صورة المنتج الرئيسية" imgName="imageCover">
 
       <div className="text-secondary mt-3">صور المنتج الثانوية</div>
-      {/*must be removed in any chance */}
-      <MultiImageInput
-        images={images}
-        setImages={setImages}
-        theme={{
-          background: 'var(--bs-body-bg)',
-          outlineColor: 'var(--bs-border-color)',
-          textColor: 'black',
-          buttonColor: 'var(--bs-btn-active-bg)',
-          modalColor: 'white',
-        }}
-        allowCrop={false}
-        max={5}
-      />
+      <ImagesInput name="images" max={5} />
 
       <input type="text" name="title" placeholder="إسم المنتج" className="p-2 form-control rounded-0" />
       <Form.Control as="textarea" name="description" className="rounded-0 mb-2" rows={3} placeholder="وصف المنتج" />

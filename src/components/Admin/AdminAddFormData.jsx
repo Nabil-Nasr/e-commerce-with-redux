@@ -2,8 +2,8 @@ import UploadImg from "../utils/UploadImg/UploadImg";
 import { Button } from "react-bootstrap";
 import useFormData from "../../hooks/useFormData";
 
-const AdminAddFormData = ({ formAction, itemReducer, pageHeader, imgHeader, imgName,appendFormData, children }) => {
-  const { handleSubmit, imgSrc, handleImageChange, loading } = useFormData({ formAction, itemReducer,appendFormData });
+const AdminAddFormData = ({ formAction, itemReducer, pageHeader, imgHeader, imgName, children }) => {
+  const { handleSubmit, imgSrc, handleImageChange, loading } = useFormData({ formAction, itemReducer });
   
   return (
     <div>
@@ -17,7 +17,7 @@ const AdminAddFormData = ({ formAction, itemReducer, pageHeader, imgHeader, imgN
         <div className="text-secondary">
           <div>{imgHeader}</div>
           <UploadImg imgSrc={imgSrc} htmlFor="upload-img" />
-          <input type="file" onChange={handleImageChange} name={imgName} hidden accept="image/jpeg,image/webp,image/bmp,image/png,image/gif" id="upload-img" />
+          <input type="file" onChange={handleImageChange} name={imgName} hidden accept="image/jpeg,image/webp,image/gif,image/png" id="upload-img" />
         </div>
         <div className="d-grid mt-3 row-gap-2">
           {children}

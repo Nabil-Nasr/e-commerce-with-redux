@@ -1,13 +1,16 @@
 :root {
   scroll-behavior: smooth;
-  --toastify-font-family: 'Almarai',sans-serif;
+  --font-main: 'Almarai', sans-serif;
+  --toastify-font-family: var(--font-main);
 }
 
 body {
-  font-family: 'Almarai',sans-serif;
+  font-family: var(--font-main);
 }
 
-*,*::before,*::after {
+*,
+*::before,
+*::after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -17,5 +20,14 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color:   rgba(var(--bs-tertiary-bg-rgb));
+  background-color: rgba(var(--bs-tertiary-bg-rgb));
+}
+
+.font-main {
+  font-family: var(--font-main);
+}
+
+/* .filepond--item-panel, */
+.filepond--panel-root {
+  border-radius: 0;
 }

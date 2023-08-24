@@ -1,15 +1,14 @@
 const validateSubmit = (formHTMLElement) => {
   const formObject = {};
   for (let input of formHTMLElement) {
-    if ((input.id?.startsWith?.("react-select"))
-        // for react color text input
-        || input.id?.startsWith?.("rc-editable")
-        || input.tagName === "BUTTON") continue;
+    if (!input.name
+      || input.tagName === "BUTTON"
+      || input.tagName === "FIELDSET"
+      // || input.type === "color"
+      || input.id.startsWith("filepond")) continue;
 
     switch (input.type) {
       case "file":
-        // to prevent using multi image input library file input
-        if(input.name)
         formObject[input.name] = input.files;
         break;
 
@@ -22,6 +21,7 @@ const validateSubmit = (formHTMLElement) => {
       // this type hidden is used in the custom select component
       // because it uses hidden inputs instead of options
       case "hidden":
+        case "color":
         if (!formObject[input.name]) {
           formObject[input.name] = [];
         }

@@ -7,9 +7,6 @@ import './assets/css/shared/all.fontawesome.min.css';
 import './assets/css/shared/fonts.min.css';
 import './assets/css/shared/index.css';
 import store from "./redux/store";
-// must be removed in any chance
-// to make react-multiple-image-input works
-import "regenerator-runtime"
 
 const root = document.getElementById('root');
 root.classList.add("btn-outline-dark")
