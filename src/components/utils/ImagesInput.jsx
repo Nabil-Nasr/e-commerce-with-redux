@@ -21,7 +21,6 @@ const ImagesInput = ({ name, max = 1, abortErrorMessageTime = 5000 }) => {
       name={name}
       credits={false}
       allowMultiple={max > 1}
-      allowReorder
       maxFiles={max}
       className="font-main"
       labelIdle='<span style="cursor:pointer;font-size:2.75em"><i class="fas fa-cloud-arrow-up text-dark"></i></span>'
