@@ -7,9 +7,9 @@
   "scripts": {
     "start": "vite --port 5000",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "build": "vite build",
+    "build": "vite build --sourcemap",
     "preview": "vite preview",
-    "build:preview": "vite build && vite preview",
+    "build:preview": "npm run build && vite preview",
     "predeploy": "VITE_DEPLOYMENT_BASE_URL=/e-commerce-with-redux vite build --outDir dist-gh-pages --base /e-commerce-with-redux && cp dist-gh-pages/index.html dist-gh-pages/404.html",
     "deploy": "gh-pages -d dist-gh-pages"
   },
@@ -42,12 +42,15 @@
   "devDependencies": {
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.4",
     "@vitejs/plugin-react-swc": "^3.3.2",
     "eslint": "^8.45.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "gh-pages": "^6.0.0",
+    "lightningcss": "^1.21.7",
+    "terser": "^5.19.2",
     "vite": "^4.4.5"
   },
   "engines": {
