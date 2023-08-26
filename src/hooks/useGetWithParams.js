@@ -39,7 +39,7 @@ const useGetWithParams = ({ params = {}, getAction, useEffectHook = useEffect, r
     return () => {
       controller.abort();
     };
-  }, [params.keyword, params.category]);
+  }, [params.keyword, params.category, params.id]);
 
   if (returnPayload) {
     return { payload };

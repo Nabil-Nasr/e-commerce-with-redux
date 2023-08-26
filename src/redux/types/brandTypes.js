@@ -1,5 +1,7 @@
 export const GET_ALL_BRANDS = "GET_ALL_BRANDS";
 
+export const GET_BRAND = "GET_BRAND";
+
 export const CREATE_BRAND = "CREATE_BRAND";
 
 export const BRAND_ENABLE_LOADING = "BRAND_ENABLE_LOADING";

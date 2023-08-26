@@ -7,16 +7,19 @@ import useGetWithParams from "../../hooks/useGetWithParams";
 import { getAllProducts, getProduct } from "../../redux/actions/productActions";
 import { productCardFields, productCardsLimit } from "../../utils/itemRequestQueries";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import useUpdateEffect from "../../hooks/useUpdateEffect";
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
-  useGetWithParams({ params: { id }, getAction: getProduct });
 
-  useGetWithParams({ getAction: getAllProducts, params: { limit: productCardsLimit, fields: productCardFields, sort: "-ratingsAverage,-ratingsQuantity" } });
+  // return payload here to not use the old product state from redux store
+  const { payload: productPayload } = useGetWithParams({ params: { id }, getAction: getProduct, returnPayload: true });
+  const { itemData: productDetails } = productPayload;
+  const { imageCover, images, category } = productDetails;
 
-  const payload = useSelector(({ product }) => product);
-  const { itemData: { imageCover, images } } = payload;
+  // get products from the same category
+  const { payload: sameCategoryProductsPayload } = useGetWithParams({ getAction: getAllProducts, params: { limit: productCardsLimit + 1, fields: productCardFields, sort: "-ratingsAverage,-ratingsQuantity", category }, useEffectHook: useUpdateEffect, returnPayload: true });
+
   return (
     <Container className="my-4 ">
       <Row className="row-gap-4">
@@ -24,7 +27,7 @@ const ProductDetailsPage = () => {
           <ProductGallery items={[imageCover].concat(images)} responsive="lg" />
         </Col>
         <Col lg="6" xxl="7">
-          <ProductDetails />
+          <ProductDetails productDetails={productDetails} />
         </Col>
       </Row>
       <Row>
@@ -32,11 +35,24 @@ const ProductDetailsPage = () => {
           <RatesContainer />
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <ProductCardsContainer title="منتجات قد تعجبك" payload={payload} />
-        </Col>
-      </Row>
+      {
+        // > 1 because the current product is included in the same category products array
+        sameCategoryProductsPayload.itemsData.length > 1 &&
+        <Row>
+          <Col>
+            <ProductCardsContainer
+              title="قد تعجبك"
+              payload={
+                {
+                  ...sameCategoryProductsPayload,
+                  // remove the current product from the same category products array
+                  itemsData: sameCategoryProductsPayload.itemsData.filter(product => product._id !== productDetails._id)
+                }
+              }
+            />
+          </Col>
+        </Row>
+      }
     </Container>
   );
 };
