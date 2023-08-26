@@ -32,8 +32,12 @@ const ProductGallery = ({ items, responsive = "lg" }) => {
     <ReactImageGallery items={items.map(image => ({ original: image, thumbnail: image }))}
       additionalClass="bg-white shadow-sm"
       disableThumbnailScroll
-      isRTL showPlayButton={false} {...galleryArgs} showNav={false} showIndex infinite={false}
+      isRTL showPlayButton={false}
+      showNav={false}
+      showIndex
+      infinite={false}
       onSlide={scrollThumbnailNearest}
+      {...galleryArgs}
     />
   );
 };

@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "vite --port 5000",
+    "start:local": "vite --port 5000 --host",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "build": "vite build --sourcemap",
     "preview": "vite preview",
