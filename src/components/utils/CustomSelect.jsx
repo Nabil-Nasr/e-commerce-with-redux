@@ -28,7 +28,7 @@ const CustomSelect = ({ isMulti, placeholder, onInputChange, itemReducer, name, 
       }
       return inputValue;
     });
-  }, 500), [loading, error]);
+  }, 1000), [loading, error]);
   return (
     <Select
       isMulti={isMulti}
