@@ -1,4 +1,4 @@
-const validateSubmit = async(formHTMLElement) => {
+const validateSubmit = (formHTMLElement) => {
   const formObject = {};
   for (let input of formHTMLElement) {
     if (!input.name
@@ -21,7 +21,7 @@ const validateSubmit = async(formHTMLElement) => {
       // this type hidden is used in the custom select component
       // because it uses hidden inputs instead of options
       case "hidden":
-        case "color":
+      case "color":
         if (!formObject[input.name]) {
           formObject[input.name] = [];
         }
