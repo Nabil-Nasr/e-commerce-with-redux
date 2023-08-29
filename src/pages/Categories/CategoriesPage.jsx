@@ -6,7 +6,7 @@ import useGetAllItems from "../../hooks/useGetAllItems";
 import { categoryCardFields } from "../../utils/itemRequestQueries";
 
 const CategoriesPage = () => {
-  const { applyPagination } = useGetAllItems({ getAllItems: getAllCategories, itemEnableLoading: categoryEnableLoading, responseFields: categoryCardFields });
+  const { applyPagination } = useGetAllItems({ getAllItems: getAllCategories, itemEnableLoading: categoryEnableLoading, params: { fields: categoryCardFields } });
 
   return (
     <Container className="my-4">

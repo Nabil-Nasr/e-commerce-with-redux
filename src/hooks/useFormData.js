@@ -19,6 +19,9 @@ const useFormData = ({ formAction, itemReducer }) => {
     };
   }, [imgSrc]);
 
+  // _id for put request
+  const { loading, itemData: { _id } } = useSelector(state => state[itemReducer]);
+
   const dispatch = useDispatch();
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -28,7 +31,7 @@ const useFormData = ({ formAction, itemReducer }) => {
     }
 
     const formData = new FormData(event.target);
-    const { error } = await dispatch(formAction(formData));
+    const { error } = await dispatch(formAction(formData, _id));
     if (error) return;
 
     // when success submit reset everything
@@ -36,9 +39,7 @@ const useFormData = ({ formAction, itemReducer }) => {
     setImgSrc(uploadImg);
   };
 
-  const { loading } = useSelector(state => state[itemReducer]);
-
-  return { handleSubmit, imgSrc, handleImageChange, loading };
+  return { handleSubmit, imgSrc, setImgSrc, handleImageChange, loading };
 };
 
 export default useFormData;

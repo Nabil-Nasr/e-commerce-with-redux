@@ -10,6 +10,9 @@ const CustomSelect = ({ isMulti, placeholder, onInputChange, itemReducer, name, 
   const cacheObjectRef = useRef({});
   const cacheData = cacheObjectRef.current[cacheInputValue] || itemsData;
 
+  // to not pass value as a falsy value and make the select component uncontrolled
+  if (!props.value) delete props.value;
+
   // saving debounce invokes
   const memoizedOnInputChange = useMemo(() => debounce(inputValue => {
     !disableCache && setCacheInputValue(inputValue);

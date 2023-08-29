@@ -1,9 +1,9 @@
 import baseURL from "../../../api/baseURL";
 import { notify } from "../../../components/utils/ActionMessageContainer";
 
-const createFormDataItem = ({ url, CREATE_ITEM, ITEM_ERROR, itemEnableLoading }) => (formData) => async (dispatch) => {
+const updateFormDataItem = ({ url, UPDATE_ITEM, ITEM_ERROR, itemEnableLoading }) => (formData, id) => async (dispatch) => {
   const controller = new AbortController();
-  const notifyId = notify({ message: "جاري الحفظ 0%", type: "loading", data: { action: () => controller.abort() } });
+  const notifyId = notify({ message: "جاري حفظ التعديل 0%", type: "loading", data: { action: () => controller.abort() } });
 
   controller.signal.onabort = () => {
     setTimeout(() => {
@@ -17,23 +17,23 @@ const createFormDataItem = ({ url, CREATE_ITEM, ITEM_ERROR, itemEnableLoading })
       signal: controller.signal,
       onUploadProgress: function (progressEvent) {
         const percentCompleted = Math.round((progressEvent.progress * 100));
-        notify({ message: `جاري الحفظ ${percentCompleted}%`, type: "loading", id: notifyId, progress: progressEvent.progress });
+        notify({ message: `جاري حفظ التعديل ${percentCompleted}%`, type: "loading", id: notifyId, progress: progressEvent.progress });
       }
     };
 
     dispatch(itemEnableLoading());
-    const { data } = await baseURL.postForm(url, formData, config);
+    const { data } = await baseURL.putForm(`${url}/${id}`, formData, config);
 
-    notify({ message: "تم الحفظ بنجاح", type: "success", id: notifyId });
+    notify({ message: "تم حفظ التعديل بنجاح", type: "success", id: notifyId });
 
     return dispatch({
-      type: CREATE_ITEM,
+      type: UPDATE_ITEM,
       payload: data
     });
 
   } catch ({ response, message }) {
 
-    notify({ message: "حدث خطأ أثناء الحفظ", type: "error", id: notifyId });
+    notify({ message: "حدث خطأ أثناء حفظ التعديل", type: "error", id: notifyId });
     return dispatch({
       type: ITEM_ERROR,
       error: `Error: ${response ? response.data?.message : message}`
@@ -41,4 +41,4 @@ const createFormDataItem = ({ url, CREATE_ITEM, ITEM_ERROR, itemEnableLoading })
   }
 };
 
-export default createFormDataItem;
+export default updateFormDataItem;

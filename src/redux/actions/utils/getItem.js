@@ -1,8 +1,8 @@
 import baseURL from "../../../api/baseURL";
 
-const getItem = ({ url, GET_ITEM, ITEM_ERROR }) => ({ params: { id }, signal, config }) => async (dispatch) => {
+const getItem = ({ url, GET_ITEM, ITEM_ERROR }) => ({ params: { id }, signal }) => async (dispatch) => {
   try {
-    const { data } = await baseURL.get(`${url}/${id}`, { signal, ...config });
+    const { data } = await baseURL.get(`${url}/${id}`, { signal });
     return dispatch({
       type: GET_ITEM,
       payload: data

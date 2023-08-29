@@ -1,8 +1,8 @@
 import { Row } from "react-bootstrap";
 import BrandCard from "./BrandCard";
 import SubTitle from "../utils/SubTitle";
-import Loading from "../utils/Loading";
 import { useSelector } from "react-redux";
+import ResultsWrapper from "../utils/ResultsWrapper";
 
 
 const BrandCardsContainer = ({ title, btnTitle, btnPath }) => {
@@ -12,16 +12,16 @@ const BrandCardsContainer = ({ title, btnTitle, btnPath }) => {
     <div>
       <SubTitle btnTitle={btnTitle} title={title} btnPath={btnPath} />
       <Row className="px-1">
-        {
-          !loading && brands.length && !error ?
+        <ResultsWrapper loading={loading} items={brands} error={error}>
+          {
             brands.map(brand =>
               <BrandCard
                 key={brand._id}
                 title={brand.name}
                 imgSrc={brand.image}
               />)
-            : <Loading />
-        }
+          }
+        </ResultsWrapper>
       </Row>
     </div>
   );

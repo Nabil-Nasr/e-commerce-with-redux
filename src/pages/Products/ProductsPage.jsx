@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { productCardFields } from "../../utils/itemRequestQueries";
 
 const ProductsPage = () => {
-  const { applyPagination } = useGetAllItems({ getAllItems: getAllProducts, itemEnableLoading: productEnableLoading, responseFields: productCardFields });
+  const { applyPagination } = useGetAllItems({ getAllItems: getAllProducts, itemEnableLoading: productEnableLoading, params: { fields: productCardFields } });
 
   const payload = useSelector(({ product }) => product);
 

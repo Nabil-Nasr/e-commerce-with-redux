@@ -42,7 +42,7 @@ const useGetWithParams = ({ params = {}, getAction, useEffectHook = useEffect, r
   }, [params.keyword, params.category, params.id]);
 
   if (returnPayload) {
-    return { payload };
+    return payload;
   }
 };
 

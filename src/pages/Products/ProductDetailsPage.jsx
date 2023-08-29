@@ -13,12 +13,11 @@ const ProductDetailsPage = () => {
   const { id } = useParams();
 
   // return payload here to not use the old product state from redux store
-  const { payload: productPayload } = useGetWithParams({ params: { id }, getAction: getProduct, returnPayload: true });
-  const { itemData: productDetails } = productPayload;
+  const { itemData: productDetails } = useGetWithParams({ params: { id }, getAction: getProduct, returnPayload: true });
   const { imageCover, images, category } = productDetails;
 
   // get products from the same category
-  const { payload: sameCategoryProductsPayload } = useGetWithParams({ getAction: getAllProducts, params: { limit: productCardsLimit + 1, fields: productCardFields, sort: "-ratingsAverage,-ratingsQuantity", category }, useEffectHook: useUpdateEffect, returnPayload: true });
+  const sameCategoryProductsPayload = useGetWithParams({ getAction: getAllProducts, params: { limit: productCardsLimit + 1, fields: productCardFields, sort: "-ratingsAverage,-ratingsQuantity", category }, useEffectHook: useUpdateEffect, returnPayload: true });
 
   return (
     <Container className="my-4 ">

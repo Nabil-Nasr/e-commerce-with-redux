@@ -1,10 +1,10 @@
-const validateSubmit = (formHTMLElement) => {
+const validateSubmit = async(formHTMLElement) => {
   const formObject = {};
   for (let input of formHTMLElement) {
     if (!input.name
       || input.tagName === "BUTTON"
       || input.tagName === "FIELDSET"
-      // || input.type === "color"
+      || input.type === "color"
       || input.id.startsWith("filepond")) continue;
 
     switch (input.type) {

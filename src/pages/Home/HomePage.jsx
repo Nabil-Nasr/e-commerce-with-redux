@@ -13,7 +13,7 @@ import { brandCardFields, brandCardsLimit, categoryCardFields, categoryCardsLimi
 const HomePage = () => {
   useGetWithParams({ getAction: getAllCategories, params: { limit: categoryCardsLimit, fields: categoryCardFields } });
 
-  const { payload: mostSoldPayload } = useGetWithParams({
+  const mostSoldPayload = useGetWithParams({
     getAction: getAllProducts, params: {
       limit: productCardsLimit,
       // sort depend on highest sold then highest quantity
@@ -21,7 +21,7 @@ const HomePage = () => {
     }, returnPayload: true
   });
 
-  const { payload: highestRatePayload } = useGetWithParams({ getAction: getAllProducts, params: { limit: productCardsLimit, fields: productCardFields, sort: "-ratingsAverage,-ratingsQuantity" }, returnPayload: true });
+  const highestRatePayload = useGetWithParams({ getAction: getAllProducts, params: { limit: productCardsLimit, fields: productCardFields, sort: "-ratingsAverage,-ratingsQuantity" }, returnPayload: true });
 
   useGetWithParams({ getAction: getAllBrands, params: { limit: brandCardsLimit, fields: brandCardFields } });
   return (

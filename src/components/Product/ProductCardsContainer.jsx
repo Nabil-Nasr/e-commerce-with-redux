@@ -1,7 +1,7 @@
 import { Row } from "react-bootstrap";
 import ProductCard from "./ProductCard/ProductCard";
 import SubTitle from "../utils/SubTitle";
-import Loading from "../utils/Loading";
+import ResultsWrapper from "../utils/ResultsWrapper";
 
 
 const ProductCardsContainer = ({ btnTitle, btnPath, title, payload }) => {
@@ -10,8 +10,8 @@ const ProductCardsContainer = ({ btnTitle, btnPath, title, payload }) => {
     <div>
       <SubTitle btnTitle={btnTitle} btnPath={btnPath} title={title} />
       <Row className="row-gap-3 px-1">
-        {
-          !loading && products.length && !error ?
+        <ResultsWrapper items={products} loading={loading} error={error}>
+          {
             products.map(product =>
               <ProductCard
                 key={product._id}
@@ -23,8 +23,8 @@ const ProductCardsContainer = ({ btnTitle, btnPath, title, payload }) => {
                 price={product.price}
                 priceAfterDiscount={product.priceAfterDiscount}
               />)
-            : <Loading />
-        }
+          }
+        </ResultsWrapper>
       </Row>
     </div>
   );

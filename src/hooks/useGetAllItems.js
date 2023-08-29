@@ -2,8 +2,7 @@ import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 
-const useGetAllItems = ({ getAllItems, itemEnableLoading, responseFields }) => {
-  const limit = 1;
+const useGetAllItems = ({ getAllItems, itemEnableLoading, params, remount }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -14,9 +13,9 @@ const useGetAllItems = ({ getAllItems, itemEnableLoading, responseFields }) => {
   const page = searchParams.get("page");
   useEffect(() => {
     const controller = new AbortController();
-    dispatch(getAllItems({ params: { limit, page, fields: responseFields }, signal: controller.signal }));
+    dispatch(getAllItems({ params: { page, ...params }, signal: controller.signal }));
     return () => controller.abort();
-  }, [page]);
+  }, [location.search, remount]);
 
   const applyPagination = (page) => {
     setSearchParams((searchParams) => {

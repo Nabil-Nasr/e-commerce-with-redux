@@ -3,10 +3,10 @@ import Pagination from "../../components/utils/Pagination/Pagination";
 import BrandCardsContainer from "../../components/Brand/BrandCardsContainer";
 import useGetAllItems from "../../hooks/useGetAllItems";
 import { brandEnableLoading, getAllBrands } from "../../redux/actions/brandActions";
-import { categoryCardFields } from "../../utils/itemRequestQueries";
+import { brandCardFields } from "../../utils/itemRequestQueries";
 
 const BrandsPage = () => {
-  const { applyPagination } = useGetAllItems({ getAllItems: getAllBrands, itemEnableLoading: brandEnableLoading, responseFields: categoryCardFields });
+  const { applyPagination } = useGetAllItems({ getAllItems: getAllBrands, itemEnableLoading: brandEnableLoading, params: { fields: brandCardFields } });
 
   return (
     <Container className="my-4">

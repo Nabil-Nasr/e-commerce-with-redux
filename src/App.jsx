@@ -28,6 +28,7 @@ import UserEditAddressPage from "./pages/User/UserEditAddressPage";
 import UserAddAddressPage from "./pages/User/UserAddAddressPage";
 import useAppMount from "./hooks/useAppMount";
 import ActionMessageContainer from "./components/utils/ActionMessageContainer";
+import AdminEditProductPage from "./pages/Admin/AdminEditProductPage";
 
 
 
@@ -65,7 +66,12 @@ const App = () => {
             <Route path=":id" element={<AdminOrderDetailsPage />} />
           </Route>
 
-          <Route path="products" element={<AdminAllProductsPage />} />
+
+          <Route path="products" >
+            <Route index element={<AdminAllProductsPage />} />
+            <Route path="edit/:id" element={<AdminEditProductPage/>} />
+          </Route>
+
           <Route path="add-brand" element={<AdminAddBrandPage />} />
           <Route path="add-category" element={<AdminAddCategoryPage />} />
           <Route path="add-subcategory" element={<AdminAddSubcategoryPage />} />

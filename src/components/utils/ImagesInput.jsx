@@ -15,11 +15,12 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 registerPlugin(ImageExifOrientationPlugin, ImagePreviewPlugin, FileValidateTypePlugin, FileValidateSizePlugin, ImageValidateSizePlugin);
 
 
-const ImagesInput = ({ name, max = 1, abortErrorMessageTime = 5000 }) => {
+const ImagesInput = ({ files, name, max = 1, abortErrorMessageTime = 5000 }) => {
   return (
     <FilePond
       name={name}
       credits={false}
+      files={files?.map(file => ({ source: file }))}
       allowMultiple={max > 1}
       maxFiles={max}
       className="font-main"
