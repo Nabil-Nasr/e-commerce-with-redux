@@ -8,7 +8,8 @@ const SearchDropdown = ({ searchResults }) => {
   const sortQuery = searchParams.get("sort");
   const registerSort = sortBy => {
     return {
-      "dropdown-active": sortBy === sortQuery && sortBy,
+      // can't pass the value as boolean because it gives an error
+      "dropdown-active": sortBy === sortQuery ? sortBy : null,
       onClick () {
         setSearchParams(prevSearchParams => {
           prevSearchParams.set("sort", sortBy);
