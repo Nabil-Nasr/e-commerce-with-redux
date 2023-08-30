@@ -1,7 +1,28 @@
 import { Container, Form, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import useSearchNavigate from "../../hooks/useSearchNavigate";
+import useDebouncedSearchParams from "../../hooks/useDebouncedSearchParams";
 
 const NavBarLogin = () => {
+  const searchNavigate = useSearchNavigate({ delay: 250 });
+  const [searchParams, setSearchParams] = useDebouncedSearchParams({}, 1000);
+
+  const handleChange = ({ target }) => {
+    const keyword = target.value;
+
+    if (location.pathname === "/products") {
+
+      setSearchParams(prevSearchParams => {
+        prevSearchParams.set("page", 1);
+        prevSearchParams.set("keyword", keyword);
+        return prevSearchParams;
+      });
+
+    } else {
+      searchNavigate({ pathname: "/products", searchParams: { keyword } });
+    }
+  };
+
   return (
     <>
       <Navbar expand="sm" sticky="top" variant="dark" className="bg-dark py-0   top-0 shadow-sm ">
@@ -17,6 +38,8 @@ const NavBarLogin = () => {
             <div className="d-flex flex-grow-1 pb-3 pb-sm-0">
               <Form.Control
                 type="search"
+                defaultValue={location.pathname === "/products" ? searchParams.get("keyword") : null}
+                onChange={handleChange}
                 placeholder="ابحث ..."
                 className="me-3 text-center shadow-none border-0 rounded-0"
                 aria-label="ابحث"

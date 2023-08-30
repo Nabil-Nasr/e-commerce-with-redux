@@ -32,7 +32,14 @@ const Pagination = ({ itemReducer, applyPagination }) => {
       breakClassName="page-item"
       breakLinkClassName="page-link"
       disabledClassName="disabled"
-      forcePage={!currentPage || (currentPage === 1 && numberOfPages <= 1) ? -1 : currentPage - 1}
+      forcePage={
+        // conditions to handle warnings of pageCount and forcePage
+        !currentPage
+        || currentPage > numberOfPages
+        || (currentPage === 1 && numberOfPages <= 1)
+          ? -1
+          : currentPage - 1
+      }
     />
   );
 };

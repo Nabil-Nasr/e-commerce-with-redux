@@ -3,17 +3,18 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 
 const useGetAllItems = ({ getAllItems, itemEnableLoading, params, remount }) => {
-  const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(itemEnableLoading());
   }, []);
 
   const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
-  const page = searchParams.get("page");
+
+  const dispatch = useDispatch();
   useEffect(() => {
     const controller = new AbortController();
-    dispatch(getAllItems({ params: { page, ...params }, signal: controller.signal }));
+    const searchParamsObject = Object.fromEntries(searchParams.entries());
+
+    dispatch(getAllItems({ params: { ...searchParamsObject, ...params }, signal: controller.signal }));
     return () => controller.abort();
   }, [location.search, remount]);
 

@@ -12,6 +12,9 @@ const getAllItems = ({ url, GET_ALL_ITEMS, ITEM_ERROR, itemEnableLoading }) => (
       payload: data
     });
   } catch ({ response, message }) {
+
+    if (message === "canceled") return;
+
     return dispatch({
       type: ITEM_ERROR,
       error: `Error: ${response ? response.data?.message : message}`
