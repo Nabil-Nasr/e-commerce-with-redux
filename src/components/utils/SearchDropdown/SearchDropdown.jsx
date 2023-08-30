@@ -1,6 +1,6 @@
-import UnopDropdown from "unop-react-dropdown";
-import "./SearchDropdown.css";
+import { Button, Dropdown } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
+import "./SearchDropdown.css";
 
 const SearchDropdown = ({ searchResults }) => {
   const [searchParams, setSearchParams] = useSearchParams({});
@@ -8,8 +8,9 @@ const SearchDropdown = ({ searchResults }) => {
   const sortQuery = searchParams.get("sort");
   const registerSort = sortBy => {
     return {
-      // can't pass the value as boolean because it gives an error
-      "dropdown-active": sortBy === sortQuery ? sortBy : null,
+      active: sortBy === sortQuery,
+      variant: "outline-dark",
+      className: "py-2",
       onClick () {
         setSearchParams(prevSearchParams => {
           prevSearchParams.set("sort", sortBy);
@@ -22,23 +23,25 @@ const SearchDropdown = ({ searchResults }) => {
   return (
     <div className="d-flex justify-content-between py-2">
       <div className="fs-4 fw-bold">{searchResults} نتيجة بحث</div>
-      <UnopDropdown
-        closeOnDropdownClicked
-        closeOnClickOut
-        trigger={
-          <div className="fs-4">
-            <i className="fas fa-arrow-down-wide-short"></i> ترتيب حسب
-          </div>
-        }
-        dropdownMenuClassName="drop-down-menu"
-        align="LEFT">
+      <Dropdown>
 
-        <div {...registerSort("-sold,-ratingsQuantity")}>الأكثر مبيعا</div>
-        <div {...registerSort("-ratingsAverage,-ratingsQuantity")}>الأعلي تقييما</div>
-        <div {...registerSort("priceAfterDiscount,price")}>السعر من الأقل للأعلي</div>
-        <div {...registerSort("-priceAfterDiscount,-price")}>السعر من الأعلي للأقل</div>
+        <Dropdown.Toggle id="dropdown-toggle-button" variant="light" className="fs-4 px-0">
+          <i className="fas fa-arrow-down-wide-short"></i> ترتيب حسب
+        </Dropdown.Toggle>
 
-      </UnopDropdown>
+        <Dropdown.Menu className="p-3">
+
+          <Button {...registerSort("-sold,-ratingsQuantity")}>الأكثر مبيعا</Button>
+
+          <Button {...registerSort("-ratingsAverage,-ratingsQuantity")}>الأعلي تقييما</Button>
+
+          <Button {...registerSort("priceAfterDiscount,price")}>السعر من الأقل للأعلي</Button>
+
+          <Button {...registerSort("-priceAfterDiscount,-price")}>السعر من الأعلي للأقل</Button>
+
+        </Dropdown.Menu>
+
+      </Dropdown>
     </div>
   );
 };

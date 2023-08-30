@@ -37,8 +37,7 @@
     "react-select": "^5.7.4",
     "react-toastify": "^9.1.3",
     "redux": "^4.2.1",
-    "redux-thunk": "^2.4.2",
-    "unop-react-dropdown": "^0.2.3"
+    "redux-thunk": "^2.4.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
