@@ -13,7 +13,9 @@ const SearchDropdown = ({ searchResults }) => {
       className: "py-2",
       onClick () {
         setSearchParams(prevSearchParams => {
-          prevSearchParams.set("sort", sortBy);
+          if (sortBy === null) prevSearchParams.delete("sort");
+          else prevSearchParams.set("sort", sortBy);
+
           return prevSearchParams;
         });
       },
@@ -30,6 +32,8 @@ const SearchDropdown = ({ searchResults }) => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu className="p-3">
+
+          <Button {...registerSort(null)}>بدون ترتيب</Button>
 
           <Button {...registerSort("-sold,-ratingsQuantity")}>الأكثر مبيعا</Button>
 
