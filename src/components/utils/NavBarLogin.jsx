@@ -13,7 +13,7 @@ const NavBarLogin = () => {
     if (location.pathname === "/products") {
 
       setSearchParams(prevSearchParams => {
-        prevSearchParams.set("page", 1);
+        prevSearchParams.delete("page");
         prevSearchParams.set("keyword", keyword);
         return prevSearchParams;
       });
@@ -39,6 +39,7 @@ const NavBarLogin = () => {
               <Form.Control
                 type="search"
                 defaultValue={location.pathname === "/products" ? searchParams.get("keyword") : null}
+                onKeyDown={event => event.key === "Enter" && handleChange(event)}
                 onChange={handleChange}
                 placeholder="ابحث ..."
                 className="me-3 text-center shadow-none border-0 rounded-0"
