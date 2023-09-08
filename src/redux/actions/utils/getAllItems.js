@@ -15,6 +15,13 @@ const getAllItems = ({ url, GET_ALL_ITEMS, ITEM_ERROR, itemEnableLoading }) => (
 
     if (message === "canceled") return;
 
+    // when changing id in search params
+    if (response?.data.message?.startsWith("Cast to ObjectId failed"))
+      return dispatch({
+        type: GET_ALL_ITEMS,
+        payload: { data: [], results: 0, paginationResult: {} }
+      });
+
     return dispatch({
       type: ITEM_ERROR,
       error: `Error: ${response ? response.data?.message : message}`

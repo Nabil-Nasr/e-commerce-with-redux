@@ -3,13 +3,13 @@ import { getAllCategories } from "../../redux/actions/categoryActions";
 import CustomSelect from "../../components/utils/CustomSelect";
 import { createSubCategory } from "../../redux/actions/subCategoryActions";
 import AdminAddRawData from "../../components/Admin/AdminAddRawData";
-import { customSelectFields, customSelectLimit } from "../../utils/itemRequestQueries";
+import { customInputFields, customSelectLimit } from "../../utils/itemRequestQueries";
 import { useState } from "react";
 
 
 const AdminAddSubcategoryPage = () => {
   const [keyword, setKeyword] = useState("");
-  useGetWithParams({ params: { limit: customSelectLimit, keyword, fields: customSelectFields }, getAction: getAllCategories });
+  useGetWithParams({ params: { limit: customSelectLimit, keyword, fields: customInputFields }, getAction: getAllCategories });
 
   return (
     <AdminAddRawData formAction={createSubCategory} pageHeader="إضافة تصنيف فرعي جديد">

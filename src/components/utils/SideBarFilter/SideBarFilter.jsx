@@ -1,28 +1,72 @@
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Button, Col, Form, Offcanvas, Row } from "react-bootstrap";
 import "./SideBarFilter.css";
+import useGetWithParams from "../../../hooks/useGetWithParams";
+import { getAllBrands } from "../../../redux/actions/brandActions";
+import { customInputFields } from "../../../utils/itemRequestQueries";
+import { getAllCategories } from "../../../redux/actions/categoryActions";
+import { useSearchParams } from "react-router-dom";
 
 const SideBarFilter = ({ children, expandMinWidth }) => {
+  const [searchParams, setSearchParams] = useSearchParams({});
   const [show, setShow] = useState(false);
 
-  // for saving state of Offcanvas onHide
-  // but for saving state we shouldn't change viewport width
-  const [offCanvasElements, setOffCanvasElements] = useState([]);
-
-  const handleShow = () => {
-    setShow(true);
-    offCanvasElements.forEach(offCanvasElement => offCanvasElement.style.visibility = "visible");
+  const getParams = (...paramsList) => {
+    const params = {};
+    paramsList.forEach(param => {
+      params[param] = searchParams.get(param);
+    });
+    return params;
   };
 
-  const handleHide = () => {
-    offCanvasElements.forEach(offCanvasElement => offCanvasElement.style.visibility = "hidden");
+  const memoizedFilter = useMemo(() => getParams("category", "brand", "price[gte]", "price[lte]"), []);
+
+  const filterRef = useRef(memoizedFilter);
+
+  const { itemsData: categories } = useGetWithParams({ getAction: getAllCategories, params: { fields: customInputFields }, returnPayload: true });
+  const { itemsData: brands } = useGetWithParams({ getAction: getAllBrands, params: { fields: customInputFields }, returnPayload: true });
+
+  const registerFilter = (name, type, value) => {
+    const registerProps = { name, type };
+    if (type === "radio") {
+      registerProps.defaultChecked = memoizedFilter[name] === value;
+      registerProps.onClick = () => {
+        filterRef.current[name] = value;
+      };
+    } else if (type === "number") {
+      registerProps.defaultValue = memoizedFilter[name];
+      registerProps.onChange = ({ target }) => {
+        filterRef.current[name] = target.value;
+      };
+    }
+    return registerProps;
   };
 
-  const handleEnter = offCanvasElement => setOffCanvasElements([offCanvasElement, offCanvasElement.previousElementSibling]);
+  const handleSubmit = event => {
+    event.preventDefault();
+    setSearchParams(prevSearchParams => {
+      for (const [key, value] of Object.entries(filterRef.current)) {
+        if (value === null || value === "") prevSearchParams.delete(key);
+        else prevSearchParams.set(key, value);
+      }
+      return prevSearchParams;
+    });
+  };
 
-
+  const registerCheckAll = name => {
+    return {
+      name,
+      defaultChecked: !filterRef.current[name],
+      onClick () {
+        // convert to null to be deleted from searchParams in handleSubmit
+        filterRef.current[name] = null;
+      }
+    };
+  };
 
   const responsive = expandMinWidth ?? "md";
+  const handleShow = () => setShow(true);
+  const handleHide = () => setShow(false);
   return (
     <>
       <Row>
@@ -33,33 +77,45 @@ const SideBarFilter = ({ children, expandMinWidth }) => {
       </Row>
       <Row >
         <Col xs="4" md="3" xl="2" className={`d-none d-${responsive}-block`}>
-          <Offcanvas onEntered={handleEnter} show={show} onHide={handleHide} onShow={null} responsive={responsive}>
+          <Offcanvas show={show} onHide={handleHide} responsive={responsive}>
             <Offcanvas.Header closeButton>
               <Offcanvas.Title>البحث المتقدم</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <dv className="pb-4 d-grid row-gap-4">
+              <form onSubmit={handleSubmit} className="pb-4 d-grid row-gap-4">
                 <div>
                   <h4 className="mb-3">الفئة</h4>
-                  <Form.Check type="checkbox" id="all-categories" label="الكل"
+                  <Form.Check type="radio" id="all-categories"
+                    label="الكل"
+                    {...registerCheckAll("category")}
                   />
-                  <Form.Check type="checkbox" id="home-devices" label="أجهزة منزلية"
-                  />
-                  <Form.Check type="checkbox" id="electronics" label="إلكترونيات"
-                  />
-                  <Form.Check type="checkbox" id="cameras" label="كاميرات"
-                  />
+                  {
+                    categories?.map(category => (
+                      <Form.Check
+                        key={category._id}
+                        {...registerFilter("category", "radio", category._id)}
+                        id={category._id}
+                        label={category.name}
+                      />
+                    ))
+                  }
                 </div>
                 <div>
                   <h4 className="mb-3">الماركة</h4>
-                  <Form.Check type="checkbox" id="all-brands" label="الكل"
+                  <Form.Check type="radio" id="all-brands"
+                    label="الكل"
+                    {...registerCheckAll("brand")}
                   />
-                  <Form.Check type="checkbox" id="apple" label="أبل"
-                  />
-                  <Form.Check type="checkbox" id="samsung" label="سامسونج"
-                  />
-                  <Form.Check type="checkbox" id="huawei" label="هواوي"
-                  />
+                  {
+                    brands?.map(brand => (
+                      <Form.Check
+                        key={brand._id}
+                        {...registerFilter("brand", "radio", brand._id)}
+                        id={brand._id}
+                        label={brand.name}
+                      />
+                    ))
+                  }
                 </div>
                 <div>
                   <h4 className="mb-3">السعر</h4>
@@ -67,20 +123,21 @@ const SideBarFilter = ({ children, expandMinWidth }) => {
                     <div className="d-flex align-items-center column-gap-2">
                       <Form.Label htmlFor="from">من</Form.Label>
                       <Form.Control
-                        type="number"
                         id="from"
+                        {...registerFilter("price[gte]", "number")}
                       />
                     </div>
                     <div className="d-flex align-items-center column-gap-2">
                       <Form.Label htmlFor="to">إلي</Form.Label>
                       <Form.Control
-                        type="number"
                         id="to"
+                        {...registerFilter("price[lte]", "number")}
                       />
                     </div>
                   </div>
                 </div>
-              </dv>
+                <Button type="submit" variant="dark" className="py-2 rounded-0">ابحث</Button>
+              </form>
             </Offcanvas.Body>
           </Offcanvas>
         </Col>

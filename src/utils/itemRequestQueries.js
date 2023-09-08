@@ -24,6 +24,6 @@ export const brandCardsLimit = 6;
 
 // for custom select component
 
-export const customSelectFields = "name";
+export const customInputFields = "name";
 
 export const customSelectLimit = 10;

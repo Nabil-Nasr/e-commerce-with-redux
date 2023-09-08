@@ -9,7 +9,7 @@ import './assets/css/shared/index.css';
 import store from "./redux/store";
 
 const root = document.getElementById('root');
-root.classList.add("btn-outline-dark")
+document.body.classList.add("btn-outline-dark")
 
 createRoot(root)
   .render(

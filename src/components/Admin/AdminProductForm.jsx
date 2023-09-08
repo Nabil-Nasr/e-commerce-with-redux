@@ -9,7 +9,7 @@ import useUpdateEffect from "../../hooks/useUpdateEffect";
 import { getAllBrands } from "../../redux/actions/brandActions";
 import { getAllCategories } from "../../redux/actions/categoryActions";
 import { getAllSubCategories } from "../../redux/actions/subCategoryActions";
-import { customSelectFields, customSelectLimit } from "../../utils/itemRequestQueries";
+import { customInputFields, customSelectLimit } from "../../utils/itemRequestQueries";
 
 const AdminProductForm = ({ product = {}, formAction, pageHeader, subCategorySelected, setSubCategorySelected, brandSelected, setBrandSelected }) => {
 
@@ -20,7 +20,7 @@ const AdminProductForm = ({ product = {}, formAction, pageHeader, subCategorySel
   const [categoryId, setCategoryId] = useState("");
 
   const limit = customSelectLimit;
-  const fields = customSelectFields;
+  const fields = customInputFields;
   useGetWithParams({ params: { limit, keyword: categoryKeyword, fields }, getAction: getAllCategories });
 
   // useUpdateEffect here is required because of the initial categoryId is empty string which is not valid
