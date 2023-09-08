@@ -51,7 +51,7 @@ const AdminProductForm = ({ product = {}, formAction, pageHeader, subCategorySel
         onInputChange={setCategoryKeyword}
         onSelect={selected => setCategoryId(selected?.value)}
         name="category"
-        value={!categoryId && product.category && { value: product.category, label: "تصنيف رئيسي مسجل" }}
+        value={!categoryId && product.category && [{ value: product.category, label: "تصنيف رئيسي مسجل" }]}
       />
 
       <CustomSelect
@@ -75,7 +75,7 @@ const AdminProductForm = ({ product = {}, formAction, pageHeader, subCategorySel
         onInputChange={setBrandKeyword}
         onSelect={setBrandSelected && (() => setBrandSelected(true))}
         name="brand"
-        value={!brandSelected && product.brand && { value: product.brand, label: "ماركة مسجلة" }}
+        value={!brandSelected && product.brand && [{ value: product.brand, label: "ماركة مسجلة" }]}
       />
 
       <div className="my-3">

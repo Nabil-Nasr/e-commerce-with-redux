@@ -13,6 +13,16 @@ const CustomSelect = ({ isMulti, placeholder, onInputChange, itemReducer, name, 
   // to not pass value as a falsy value and make the select component uncontrolled
   if (!props.value) delete props.value;
 
+  // to show the label of the selected value
+  props.value?.length && props.value.forEach(selected => {
+    for (const item of cacheData) {
+      if (selected.value === item._id) {
+        selected.label = item.name;
+        break;
+      }
+    }
+  });
+
   // saving debounce invokes
   const memoizedOnInputChange = useMemo(() => debounce(inputValue => {
     !disableCache && setCacheInputValue(inputValue);
