@@ -13,9 +13,11 @@ const AdminFormData = ({ formAction, itemReducer, pageHeader, imgHeader, imgName
 
   useUpdateEffect(() => {
     if (imgUrl)
-      fileUrlIntoFileInput(imgUrl, imageInputRef.current, "image")
+      fileUrlIntoFileInput(imgUrl, imageInputRef.current)
         .then(() => {
-          setImgSrc(URL.createObjectURL(imageInputRef.current.files[0]));
+          // if the image is exist on the server
+          if (imageInputRef.current.files[0].type.includes("image"))
+            setImgSrc(URL.createObjectURL(imageInputRef.current.files[0]));
         });
   }, [imgUrl]);
 
