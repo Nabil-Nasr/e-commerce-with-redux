@@ -11,33 +11,34 @@ const SideBarFilter = ({ children, expandMinWidth }) => {
   const [searchParams, setSearchParams] = useSearchParams({});
   const [show, setShow] = useState(false);
 
-  const getParams = (...paramsList) => {
-    const params = {};
-    paramsList.forEach(param => {
-      params[param] = searchParams.get(param);
+  const getSearchParams = (...searchParamsList) => {
+    const gottenSearchParams = {};
+    searchParamsList.forEach(searchParam => {
+      gottenSearchParams[searchParam] = searchParams.get(searchParam);
     });
-    return params;
+    return gottenSearchParams;
   };
 
-  const memoizedFilter = useMemo(() => getParams("category", "brand", "price[gte]", "price[lte]"), []);
+  // memoized for not recalculating on every render
+  const initialFilter = useMemo(() => getSearchParams("category", "brand", "price[gte]", "price[lte]"), []);
 
-  const filterRef = useRef(memoizedFilter);
+  const filterRef = useRef(initialFilter);
 
   const { itemsData: categories } = useGetWithParams({ getAction: getAllCategories, params: { fields: customInputFields }, returnPayload: true });
   const { itemsData: brands } = useGetWithParams({ getAction: getAllBrands, params: { fields: customInputFields }, returnPayload: true });
 
-  const registerFilter = (name, type, value) => {
+  const registerFilter = (name, type, idValue) => {
     const registerProps = { name, type };
+    const handleAddFilter = ({ target }) => {
+      filterRef.current[name] = target.value;
+    };
     if (type === "radio") {
-      registerProps.defaultChecked = memoizedFilter[name] === value;
-      registerProps.onClick = () => {
-        filterRef.current[name] = value;
-      };
+      registerProps.defaultChecked = initialFilter[name] === idValue;
+      registerProps.value = idValue;
+      registerProps.onClick = handleAddFilter;
     } else if (type === "number") {
-      registerProps.defaultValue = memoizedFilter[name];
-      registerProps.onChange = ({ target }) => {
-        filterRef.current[name] = target.value;
-      };
+      registerProps.defaultValue = initialFilter[name];
+      registerProps.onChange = handleAddFilter;
     }
     return registerProps;
   };
@@ -56,7 +57,7 @@ const SideBarFilter = ({ children, expandMinWidth }) => {
   const registerCheckAll = name => {
     return {
       name,
-      defaultChecked: !filterRef.current[name],
+      defaultChecked: !initialFilter[name],
       onClick () {
         // convert to null to be deleted from searchParams in handleSubmit
         filterRef.current[name] = null;
@@ -71,7 +72,7 @@ const SideBarFilter = ({ children, expandMinWidth }) => {
     <>
       <Row>
         <Col>
-          <Button onClick={handleShow} variant="dark" className={`d-${responsive}-none mb-3`} >البحث المتقدم
+          <Button onClick={handleShow} variant="dark" className={`d-${responsive}-none mb-3 rounded-0`} >البحث المتقدم
           </Button>
         </Col>
       </Row>
